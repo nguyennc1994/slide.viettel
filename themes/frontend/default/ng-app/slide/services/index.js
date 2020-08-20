@@ -22,7 +22,7 @@ angular.module('viettel1').service(
         edit: function(uuid){
             var deferred = $q.defer();
             if(uuid){
-                $http.get('/viettel1/frontend-slide/edit/',{params: {uuid: uuid}}).then(function(response){
+                $http.get('/viettel1/backend-slide/edit/',{params: {uuid: uuid}}).then(function(response){
                     deferred.resolve(response.data);
                 }, function(error){});
                 return deferred.promise;

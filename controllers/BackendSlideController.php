@@ -21,6 +21,12 @@ class  BackendSlideController extends ControllerBase
         echo "hi hi hi";
         exit();
     }
+
+    public function findByUuidAction()
+    {
+        $uuid = $this->request->getPost('uuid');
+    }
+
     public function saveAction(){
 
         $uuid = $this->request->getPost('uuid');

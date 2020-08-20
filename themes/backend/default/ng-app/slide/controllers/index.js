@@ -17,8 +17,8 @@ angular.module('viettel1').config(function ($stateProvider, $urlRouterProvider, 
             }
         })
         .state('edit', {
-            templateUrl: '/modules/viettel1/themes/backend/default/ng-app/slide/partials/form.html',
-            controller: 'SlideFormController',
+            templateUrl: '/modules/viettel1/themes/backend/default/ng-app/slide/partials/edit.html',
+            controller: 'SlideEditController',
             controllerAs: 'vm',
             url: "/edit/:slideUuid",
             params: {
@@ -27,6 +27,8 @@ angular.module('viettel1').config(function ($stateProvider, $urlRouterProvider, 
         });
 });
 
+
+var uuid_editing="";
 angular.module('viettel1').controller('SlideListController', function($scope, SlideService){
     var vm = this;
     var indexScreen = "";
@@ -52,6 +54,13 @@ angular.module('viettel1').controller('SlideListController', function($scope, Sl
         vm.selectPage(1);
     }
 
+    vm.getUuid = function (uuid){
+        uuid_editing = uuid;
+        console.log(uuid_editing)
+        console.log(uuid)
+    }
+
+
     $('#selectScreen').on('change', function () {
         //ways to retrieve selected option and text outside handler
         console.log('Changed option value ' + this.value);
@@ -71,12 +80,7 @@ angular.module('viettel1').controller('SlideListController', function($scope, Sl
     vm.fetchResult = function (indexScreen) {
         return SlideService.list(vm.filterCriteria).then(function (data) {
             // vm.slides = data.items;
-            console.log("inrdenScreen: "+typeof indexScreen)
-            console.log("data: "+JSON.stringify(data.items))
             vm.slides = []
-            // for(var i in vm.slides){
-            //     vm.slides[i].data = angular.fromJson(vm.slides[i].data);
-            // }
 
             switch (indexScreen) {
                 case "1":
@@ -107,7 +111,6 @@ angular.module('viettel1').controller('SlideListController', function($scope, Sl
 
             }
 
-            console.log("AAAAAAAAAAAAAA"+vm.slides)
             vm.totalPages = data.pages;
             vm.slidesCount = data.items.length;
         }, function () {
@@ -140,7 +143,9 @@ angular.module('viettel1').controller('SlideListController', function($scope, Sl
             vm.slide.data.display[0]=0
         }
         else  vm.slide.data.display[0]=1;
-        SlideService.save(vm.slide)
+        // SlideService.save(vm.slide)
+        console.log("Check edit slide: "+ JSON.stringify(vm.slide))
+        SlideService.edit(vm.slide.uuid)
 
     };
     vm.changeStatus2 = function(uuid, status){
@@ -154,6 +159,7 @@ angular.module('viettel1').controller('SlideListController', function($scope, Sl
             vm.slide.data.display[1]=0
         }
         else  vm.slide.data.display[1]=1;
+        console.log("Check add slide in list: "+ JSON.stringify(vm.slide))
         SlideService.save(vm.slide)
         // SlideService.edit(vm.slide.uuid)
 
@@ -197,8 +203,6 @@ angular.module('viettel1').controller('SlideListController', function($scope, Sl
     init();
 });
 
-
-
 angular.module('viettel1').controller('SlideFormController', function($scope, $state, $stateParams, Slug, uuid, ModuleDataService, SlideService, $uibModal){
     var vm = this;
     vm.init = function(){
@@ -224,13 +228,6 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
                     0,
                     0,
                 ],
-                // display : [
-                //     [,1],
-                //     [,1],
-                //     [,1],
-                // ]
-                // status: 1,
-                // indexScreen: [],
             },
             workflow: {},
             catalog: {},
@@ -273,7 +270,9 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
         else  vm.slide.data.display[2]=0
     });
 
-
+    // if(vm.editting){
+    //     vm.uuid =
+    // }
     vm.popupFileBackground = function(lang, parentSelector){
         // var x = document.getElementById("").value;
 
@@ -310,7 +309,7 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
             console.info(file);
 
             if(vm.editting){
-                vm.item.backgroundImage= file.url;
+                file.url = vm.slide.data.backgroundImage;
                 // vm.item.backgroundImage[vm.current_lang] = file.url;
             }else{
                 vm.slide.data.backgroundImage=file.url;
@@ -482,7 +481,8 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
     };
 
     vm.popupFileShadowImage = function(lang, parentSelector){
-        console.log("Select file");
+        // var folder_file = document.getElementsByClassName("popup-file")[1].getAttribute("value");
+        // console.log("This is x: "+folder_file)
         // console.log(aa);
         var parentElem = parentSelector ?
             angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
@@ -515,11 +515,19 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
         modalInstance.result.then(function (file) {
             console.log("Test shadow: " + file);
             if(vm.editting){
-                vm.item.shadowImage = file.url;
+                vm.slide.data.shadowImage = file.url;
                 // vm.item.rightSubImage[vm.current_lang] = file.url;
             }else{
+                // switch (folder_file) {
+                // case "Shadow Image":
                 vm.slide.data.shadowImage=file.url;
+                // break;
+                // case "Background Image":  vm.slide.data.backgroundImage=file.url; break;
+                // case "Main Image":  vm.slide.data.mainImage=file.url; break;
+                // case "Left Sub Image":  vm.slide.data.leftSubImage=file.url; break;
+                // case "Right Sub Image":  vm.slide.data.rightSubImage=file.url; break;
             }
+
 
             // $scope.$apply();
         }, function () {
@@ -529,3 +537,336 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
     vm.init();
 });
 
+angular.module('viettel1').controller('SlideEditController', function($scope, $state, $stateParams, Slug, uuid, ModuleDataService, SlideService, $uibModal){
+    var vm = this;
+    vm.init = function(){
+        vm.slide = {
+            uuid:'uaas-3243',
+            data : {
+                title: {
+                    vi: "",
+                    en: ""
+                },
+                quote: "",
+                position: "",
+                name: "",
+                leftSubTitle: "",
+                rightSubTitle:"",
+                shadowImage:"",
+                backgroundImage:"/content/uploads/viettel1/slide/Background Image/bgtrg1.png",
+                mainImage:"",
+                leftSubImage:"",
+                rightSubImage:"",
+                display : [
+                    0,
+                    0,
+                    0,
+                ],
+            },
+            workflow: {},
+            catalog: {},
+
+        };
+    };
+
+    vm.submit = function(){
+        console.log(vm.slide)
+        if(confirm('Bạn có chắc chắn thêm dữ liệu không?')){
+            SlideService.save(vm.slide).then(function (data) {
+                if(response.success){
+                    alertify.success('Thêm dữ liệu thành công');
+                }else{
+                    alertify.error('Lỗi khi thêm dữ liệu');
+                }
+            });
+        }
+
+    }
+
+    $('#screen1').click(function() {
+        console.log("Checkbox state (method 1) = " + $('#screen1').prop('checked'));
+        if($('#screen1').prop('checked')==true)
+            vm.slide.data.display[0]=1;
+        else  vm.slide.data.display[0]=0
+    });
+
+    $('#screen2').click(function() {
+        console.log("Checkbox state (method 2) = " + $('#screen2').prop('checked'));
+        if($('#screen2').prop('checked')==true)
+            vm.slide.data.display[1]=1;
+        else  vm.slide.data.display[1]=0
+    });
+
+    $('#screen3').click(function() {
+        console.log("Checkbox state (method 3) = " + $('#screen3').prop('checked'));
+        if($('#screen3').prop('checked')==true)
+            vm.slide.data.display[2]=1;
+        else  vm.slide.data.display[2]=0
+    });
+
+    // if(vm.editting){
+    //     vm.uuid =
+    // }
+    vm.popupFileBackground = function(lang, parentSelector){
+        // var x = document.getElementById("").value;
+
+        console.log("Select file")
+        var parentElem = parentSelector ?
+            angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
+        var modalInstance = $uibModal.open({
+            // animation: $ctrl.animationsEnabled,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            //templateUrl: 'widget_option.html',
+            templateUrl: '/modules/viettel1/themes/backend/default/ng-app/upload/partials/popup.html',
+            controller: 'UploadController',
+            controllerAs: 'vm',
+            size: 'lg',
+            appendTo: parentElem,
+            resolve: {
+                params: function () {
+                    // return vm.selected;
+                    return {
+                        upload_folder: "Background Image",
+                        lang: lang,
+                        model_uuid: vm.slide.uuid,
+                        model: 'slide',
+                        module: 'viettel1',
+                        repository: 'all',
+                        ext: 'jpg,png'
+                    }
+                }
+            }
+        });
+
+        modalInstance.result.then(function (file) {
+            console.info(file);
+
+            if(vm.editting){
+                file.url = vm.slide.data.backgroundImage;
+                // vm.item.backgroundImage[vm.current_lang] = file.url;
+            }else{
+                vm.slide.data.backgroundImage=file.url;
+            }
+
+            // $scope.$apply();
+        }, function () {
+            // $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+    vm.popupFileMainImage = function(lang, parentSelector){
+        console.log("Select file");
+        var parentElem = parentSelector ?
+            angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
+        var modalInstance = $uibModal.open({
+            // animation: $ctrl.animationsEnabled,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            //templateUrl: 'widget_option.html',
+            templateUrl: '/modules/viettel1/themes/backend/default/ng-app/upload/partials/popup.html',
+            controller: 'UploadController',
+            controllerAs: 'vm',
+            size: 'lg',
+            appendTo: parentElem,
+            resolve: {
+                params: function () {
+                    // return vm.selected;
+                    return {
+                        upload_folder: "Main Image",
+                        lang: lang,
+                        model_uuid: vm.slide.uuid,
+                        model: 'slide',
+                        module: 'viettel1',
+                        repository: 'all',
+                        ext: 'jpg,png'
+                    }
+                }
+            }
+        });
+
+        modalInstance.result.then(function (file) {
+            console.info(file);
+
+            if(vm.editting){
+                vm.item.mainImage = file.url;
+                // vm.item.mainImage[vm.current_lang] = file.url;
+            }else{
+                // var slide = {mainImage: {}};
+                // slide.mainImage = file.url;
+                // // slide.mainImage[vm.current_lang] = file.url;
+                // if(typeof vm.slide.data.items == "undefined"){
+                //     vm.slide.data.items = [];
+                // }
+                // vm.slide.data.items.push(slide);
+                vm.slide.data.mainImage=file.url;
+            }
+
+            // $scope.$apply();
+        }, function () {
+            // $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+    vm.popupFileLeftSubImage = function(lang, parentSelector){
+        console.log("Select file");
+        var parentElem = parentSelector ?
+            angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
+        var modalInstance = $uibModal.open({
+            // animation: $ctrl.animationsEnabled,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            //templateUrl: 'widget_option.html',
+            templateUrl: '/modules/viettel1/themes/backend/default/ng-app/upload/partials/popup.html',
+            controller: 'UploadController',
+            controllerAs: 'vm',
+            size: 'lg',
+            appendTo: parentElem,
+            resolve: {
+                params: function () {
+                    // return vm.selected;
+                    return {
+                        upload_folder: "Left Sub Image",
+                        lang: lang,
+                        model_uuid: vm.slide.uuid,
+                        model: 'slide',
+                        module: 'viettel1',
+                        repository: 'all',
+                        ext: 'jpg,png'
+                    }
+                }
+            }
+        });
+
+        modalInstance.result.then(function (file) {
+            console.info(file);
+
+            if(vm.editting){
+                vm.item.leftSubImage = file.url;
+                // vm.item.leftSubImage[vm.current_lang] = file.url;
+            }else{
+                // var slide = {leftSubImage: {}};
+                // slide.leftSubImage = file.url;
+                // // slide.leftSubImage[vm.current_lang] = file.url;
+                // if(typeof vm.slide.data.items == "undefined"){
+                //     vm.slide.data.items = [];
+                // }
+                // vm.slide.data.items.push(slide);
+                vm.slide.data.leftSubImage=file.url;
+            }
+
+            // $scope.$apply();
+        }, function () {
+            // $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+    vm.popupFileRightSubImage = function(lang, parentSelector){
+        console.log("Select file");
+        var parentElem = parentSelector ?
+            angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
+        var modalInstance = $uibModal.open({
+            // animation: $ctrl.animationsEnabled,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            //templateUrl: 'widget_option.html',
+            templateUrl: '/modules/viettel1/themes/backend/default/ng-app/upload/partials/popup.html',
+            controller: 'UploadController',
+            controllerAs: 'vm',
+            size: 'lg',
+            appendTo: parentElem,
+            resolve: {
+                params: function () {
+                    // return vm.selected;
+                    return {
+                        upload_folder: "Right Sub Image",
+                        lang: lang,
+                        model_uuid: vm.slide.uuid,
+                        model: 'slide',
+                        module: 'viettel1',
+                        repository: 'all',
+                        ext: 'jpg,png'
+                    }
+                }
+            }
+        });
+
+        modalInstance.result.then(function (file) {
+            console.info(file);
+
+            if(vm.editting){
+                vm.item.rightSubImage = file.url;
+                // vm.item.rightSubImage[vm.current_lang] = file.url;
+            }else{
+                // var slide = {rightSubImage: {}};
+                // slide.rightSubImage = file.url;
+                // // slide.rightSubImage[vm.current_lang] = file.url;
+                // if(typeof vm.slide.data.items == "undefined"){
+                //     vm.slide.data.items = [];
+                // }
+                // vm.slide.data.items.push(slide);
+                vm.slide.data.rightSubImage=file.url;
+            }
+
+            // $scope.$apply();
+        }, function () {
+            // $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+    vm.popupFileShadowImage = function(lang, parentSelector){
+        // var folder_file = document.getElementsByClassName("popup-file")[1].getAttribute("value");
+        // console.log("This is x: "+folder_file)
+        // console.log(aa);
+        var parentElem = parentSelector ?
+            angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
+        var modalInstance = $uibModal.open({
+            // animation: $ctrl.animationsEnabled,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            //templateUrl: 'widget_option.html',
+            templateUrl: '/modules/viettel1/themes/backend/default/ng-app/upload/partials/popup.html',
+            controller: 'UploadController',
+            controllerAs: 'vm',
+            size: 'lg',
+            appendTo: parentElem,
+            resolve: {
+                params: function () {
+                    // return vm.selected;
+                    return {
+                        upload_folder: "Shadow Image",
+                        lang: lang,
+                        model_uuid: vm.slide.uuid,
+                        model: 'slide',
+                        module: 'viettel1',
+                        repository: 'all',
+                        ext: 'jpg,png'
+                    }
+                }
+            }
+        });
+
+        modalInstance.result.then(function (file) {
+            console.log("Test shadow: " + file);
+            if(vm.editting){
+                vm.slide.data.shadowImage = file.url;
+                // vm.item.rightSubImage[vm.current_lang] = file.url;
+            }else{
+                // switch (folder_file) {
+                // case "Shadow Image":
+                vm.slide.data.shadowImage=file.url;
+                // break;
+                // case "Background Image":  vm.slide.data.backgroundImage=file.url; break;
+                // case "Main Image":  vm.slide.data.mainImage=file.url; break;
+                // case "Left Sub Image":  vm.slide.data.leftSubImage=file.url; break;
+                // case "Right Sub Image":  vm.slide.data.rightSubImage=file.url; break;
+            }
+
+
+            // $scope.$apply();
+        }, function () {
+            // $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+    vm.init();
+});

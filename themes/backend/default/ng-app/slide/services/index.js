@@ -24,6 +24,7 @@ angular.module('viettel1').service(
             if(uuid){
                 $http.get('/viettel1/backend-slide/edit/',{params: {uuid: uuid}}).then(function(response){
                     deferred.resolve(response.data);
+                    console.log("Check edit API: "+response)
                 }, function(error){});
                 return deferred.promise;
             }
