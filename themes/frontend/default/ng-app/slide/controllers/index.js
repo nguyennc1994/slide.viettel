@@ -60,7 +60,7 @@ angular.module('viettel1').controller('SlideList1Controller', function($scope, S
             vm.slides = []
                     for(let i =0; i< data.items.length; i++){
                         console.log("vm.slides[i].data.indexScreen"+data.items[i])
-                        if(data.items[i].data.display[0][0] == 1 & data.items[i].data.display[0][1] == 1){
+                        if(data.items[i].data.display[0] == 1){
                             console.log("Check screen: "+data.items[i].data);
                             vm.slides.push(data.items[i]);
                         }
@@ -143,7 +143,7 @@ angular.module('viettel1').controller('SlideList2Controller', function($scope, S
             console.log("data: "+data.items)
             vm.slides = []
             for(let i =0; i< data.items.length; i++){
-                if(data.items[i].data.display[1][0] == 1 & data.items[i].data.display[1][1] == 1){
+                if(data.items[i].data.display[1] == 1){
                     vm.slides.push(data.items[i]);
                 }
             }
@@ -237,7 +237,7 @@ angular.module('viettel1').controller('SlideList3Controller', function($scope, S
             console.log("data: "+data.items)
             vm.slides = []
             for(let i =0; i< data.items.length; i++){
-                if(data.items[i].data.display[2][0] == 1 & data.items[i].data.display[2][1] == 1){
+                if(data.items[i].data.display[2] == 1){
                     console.log("Check screen: "+data.items[i].data);
                     vm.slides.push(data.items[i]);
                 }

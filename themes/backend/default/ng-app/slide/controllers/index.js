@@ -81,16 +81,14 @@ angular.module('viettel1').controller('SlideListController', function($scope, Sl
             switch (indexScreen) {
                 case "1":
                     for(let i =0; i< data.items.length; i++){
-                        console.log("vm.slides[i].data.indexScreen"+JSON.stringify(data.items[i].data.display[0][0]))
-                        if(data.items[i].data.display[0][0] == 1){
+                        if(data.items[i].data.display[0] == 1){
                             vm.slides.push(data.items[i]);
                         }
                     }
                     break;
                 case "2":
                     for(let i =0; i< data.items.length; i++){
-                        console.log("vm.slides[i].data.indexScreen"+JSON.stringify(data.items[i].data.display[1][0]))
-                            if(data.items[i].data.display[1][0] == 1){
+                            if(data.items[i].data.display[1] == 1){
                             vm.slides.push(data.items[i]);
                         }
                     };
@@ -99,13 +97,10 @@ angular.module('viettel1').controller('SlideListController', function($scope, Sl
 
                 case "3":
                     for(let i =0; i< data.items.length; i++){
-                        console.log("vm.slides[i].data.indexScreen"+data.items[i])
-                        if(data.items[i].data.display[2][0] == 1){
-                            console.log("Check screen: "+data.items[i].data);
+                        if(data.items[i].data.display[2] == 1){
                             vm.slides.push(data.items[i]);
                         }
                     };
-
                     break;
 
                 default :  vm.slides = data.items
@@ -141,10 +136,10 @@ angular.module('viettel1').controller('SlideListController', function($scope, Sl
                 vm.slide = vm.slides[i];
             }
         }
-        if(vm.slide.data.display[0][1] == 1) {
-            vm.slide.data.display[0][1]=0
+        if(vm.slide.data.display[0] == 1) {
+            vm.slide.data.display[0]=0
         }
-        else  vm.slide.data.display[0][1]=1;
+        else  vm.slide.data.display[0]=1;
         SlideService.save(vm.slide)
 
     };
@@ -155,10 +150,10 @@ angular.module('viettel1').controller('SlideListController', function($scope, Sl
                 vm.slide = vm.slides[i];
             }
         }
-        if(vm.slide.data.display[1][1] == 1) {
-            vm.slide.data.display[1][1]=0
+        if(vm.slide.data.display[1] == 1) {
+            vm.slide.data.display[1]=0
         }
-        else  vm.slide.data.display[1][1]=1;
+        else  vm.slide.data.display[1]=1;
         SlideService.save(vm.slide)
         // SlideService.edit(vm.slide.uuid)
 
@@ -170,10 +165,10 @@ angular.module('viettel1').controller('SlideListController', function($scope, Sl
                 vm.slide = vm.slides[i];
             }
         }
-        if(vm.slide.data.display[2][1] == 1) {
-            vm.slide.data.display[2][1]=0
+        if(vm.slide.data.display[2] == 1) {
+            vm.slide.data.display[2]=0
         }
-        else  vm.slide.data.display[2][1]=1;
+        else  vm.slide.data.display[2]=1;
         SlideService.save(vm.slide)
         // SlideService.edit(vm.slide.uuid)
 
@@ -206,7 +201,6 @@ angular.module('viettel1').controller('SlideListController', function($scope, Sl
 
 angular.module('viettel1').controller('SlideFormController', function($scope, $state, $stateParams, Slug, uuid, ModuleDataService, SlideService, $uibModal){
     var vm = this;
-
     vm.init = function(){
         vm.slide = {
             uuid:uuid.v4(),
@@ -226,10 +220,15 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
                 leftSubImage:"",
                 rightSubImage:"",
                 display : [
-                    [,1],
-                    [,1],
-                    [,1],
-                ]
+                    0,
+                    0,
+                    0,
+                ],
+                // display : [
+                //     [,1],
+                //     [,1],
+                //     [,1],
+                // ]
                 // status: 1,
                 // indexScreen: [],
             },
@@ -256,47 +255,28 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
     $('#screen1').click(function() {
         console.log("Checkbox state (method 1) = " + $('#screen1').prop('checked'));
         if($('#screen1').prop('checked')==true)
-            vm.slide.data.display[0][0]=1;
-        else  vm.slide.data.display[0][0]=0
+            vm.slide.data.display[0]=1;
+        else  vm.slide.data.display[0]=0
     });
 
     $('#screen2').click(function() {
         console.log("Checkbox state (method 2) = " + $('#screen2').prop('checked'));
         if($('#screen2').prop('checked')==true)
-            vm.slide.data.display[1][0]=1;
-        else  vm.slide.data.display[1][0]=0
+            vm.slide.data.display[1]=1;
+        else  vm.slide.data.display[1]=0
     });
 
     $('#screen3').click(function() {
         console.log("Checkbox state (method 3) = " + $('#screen3').prop('checked'));
         if($('#screen3').prop('checked')==true)
-            vm.slide.data.display[2][0]=1;
-        else  vm.slide.data.display[2][0]=0
+            vm.slide.data.display[2]=1;
+        else  vm.slide.data.display[2]=0
     });
-
-    // $('#screen1').click(function() {
-    //     console.log("Checkbox state (method 1) = " + $('#screen1').prop('checked'));
-    //     if($('#screen1').prop('checked')==true)
-    //         vm.slide.data.indexScreen[0]=1;
-    //     else  vm.slide.data.indexScreen[0]=0
-    // });
-    //
-    // $('#screen2').click(function() {
-    //     console.log("Checkbox state (method 2) = " + $('#screen2').prop('checked'));
-    //     if($('#screen2').prop('checked')==true)
-    //         vm.slide.data.indexScreen[1]=1;
-    //     else  vm.slide.data.indexScreen[1]=0
-    // });
-    //
-    // $('#screen3').click(function() {
-    //     console.log("Checkbox state (method 3) = " + $('#screen3').prop('checked'));
-    //     if($('#screen3').prop('checked')==true)
-    //         vm.slide.data.indexScreen[2]=1;
-    //     else  vm.slide.data.indexScreen[2]=0
-    // });
 
 
     vm.popupFileBackground = function(lang, parentSelector){
+        // var x = document.getElementById("").value;
+
         console.log("Select file")
         var parentElem = parentSelector ?
             angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
@@ -538,13 +518,6 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
                 vm.item.shadowImage = file.url;
                 // vm.item.rightSubImage[vm.current_lang] = file.url;
             }else{
-                // var slide = {rightSubImage: {}};
-                // slide.rightSubImage = file.url;
-                // // slide.rightSubImage[vm.current_lang] = file.url;
-                // if(typeof vm.slide.data.items == "undefined"){
-                //     vm.slide.data.items = [];
-                // }
-                // vm.slide.data.items.push(slide);
                 vm.slide.data.shadowImage=file.url;
             }
 
