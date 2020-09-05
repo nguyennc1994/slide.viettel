@@ -29,6 +29,14 @@ angular.module('viettel1').service(
                 return deferred.promise;
             }
         },
+        findByUuid: function (filter) {
+            var deferred = $q.defer();
+            $http.get('/viettel1/backend-slide/edit/',{params: {uuid: filter.uuid}}).then(function(response){
+                deferred.resolve(response.data);
+                console.log("Check edit API: "+ JSON.stringify(response))
+            }, function(error){});
+            return deferred.promise;
+        },
         list: function (filter) {
             var deferred = $q.defer();
             $http({

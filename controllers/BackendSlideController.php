@@ -22,11 +22,6 @@ class  BackendSlideController extends ControllerBase
         exit();
     }
 
-    public function findByUuidAction()
-    {
-        $uuid = $this->request->getPost('uuid');
-    }
-
     public function saveAction(){
 
         $uuid = $this->request->getPost('uuid');
@@ -55,6 +50,7 @@ class  BackendSlideController extends ControllerBase
 
         exit();
     }
+
 
     public function searchAction(){
         $this->view->disable();
@@ -90,8 +86,38 @@ class  BackendSlideController extends ControllerBase
         ));
 
         exit();
-
     }
+
+    public function findByUuidAction(){
+        $this->view->disable();
+        $r = $this->request;
+
+        $uuid = $r->getQuery('uuid');
+
+        $items=array();
+
+        if(empty($query)) {
+            $filter = array(
+                'uuid' => $uuid,
+            );
+        }
+
+        $rs = $this->slide_service->findFirstById($filter);
+
+        foreach ($rs as $item){
+            $items[]=array(
+                'uuid' => $item->uuid,
+                'data' => $item->data,
+            );
+        }
+        echo json_encode(array(
+            'success' => true,
+            'items' => $items,
+        ));
+
+        exit();
+    }
+
     public function listAction(){
 
         $this->view->disable();

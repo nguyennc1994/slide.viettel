@@ -28,18 +28,19 @@ angular.module('viettel1').config(function ($stateProvider, $urlRouterProvider, 
 });
 
 
-var uuid_editing="";
-angular.module('viettel1').controller('SlideListController', function($scope, SlideService){
+var uuid_editing = "";
+angular.module('viettel1').controller('SlideListController', function ($scope, SlideService) {
     var vm = this;
     var indexScreen = "";
-    vm.setLang = function(lang){
+    vm.setLang = function (lang) {
         vm.current_lang = lang;
         vm.filterCriteria.lang = lang;
         vm.currentPage = 1;
         vm.filterCriteria.pageNumber = 1;
         vm.fetchResult();
     };
-    function init(){
+
+    function init() {
         //default criteria that will be sent to the server
 
         vm.filterCriteria = {
@@ -54,7 +55,7 @@ angular.module('viettel1').controller('SlideListController', function($scope, Sl
         vm.selectPage(1);
     }
 
-    vm.getUuid = function (uuid){
+    vm.getUuid = function (uuid) {
         uuid_editing = uuid;
         console.log(uuid_editing)
         console.log(uuid)
@@ -64,7 +65,7 @@ angular.module('viettel1').controller('SlideListController', function($scope, Sl
     $('#selectScreen').on('change', function () {
         //ways to retrieve selected option and text outside handler
         console.log('Changed option value ' + this.value);
-        indexScreen =  this.value;
+        indexScreen = this.value;
         console.log('Changed option text ' + $(this).find('option').filter(':selected').text());
         vm.fetchResult(indexScreen);
         console.log(indexScreen)
@@ -84,30 +85,33 @@ angular.module('viettel1').controller('SlideListController', function($scope, Sl
 
             switch (indexScreen) {
                 case "1":
-                    for(let i =0; i< data.items.length; i++){
-                        if(data.items[i].data.display[0] == 1){
+                    for (let i = 0; i < data.items.length; i++) {
+                        if (data.items[i].data.display[0] == 1) {
                             vm.slides.push(data.items[i]);
                         }
                     }
                     break;
                 case "2":
-                    for(let i =0; i< data.items.length; i++){
-                            if(data.items[i].data.display[1] == 1){
+                    for (let i = 0; i < data.items.length; i++) {
+                        if (data.items[i].data.display[1] == 1) {
                             vm.slides.push(data.items[i]);
                         }
-                    };
+                    }
+                    ;
 
                     break;
 
                 case "3":
-                    for(let i =0; i< data.items.length; i++){
-                        if(data.items[i].data.display[2] == 1){
+                    for (let i = 0; i < data.items.length; i++) {
+                        if (data.items[i].data.display[2] == 1) {
                             vm.slides.push(data.items[i]);
                         }
-                    };
+                    }
+                    ;
                     break;
 
-                default :  vm.slides = data.items
+                default :
+                    vm.slides = data.items
 
             }
 
@@ -120,10 +124,10 @@ angular.module('viettel1').controller('SlideListController', function($scope, Sl
         });
     };
 
-    vm.onSlideSelect = function($item, $model, $label){
+    vm.onSlideSelect = function ($item, $model, $label) {
         // if(_.isDefined(vm.post.catalog)) vm.catalog = {};
         // if(!_.isDefined(vm.related_posts)) vm.related_posts = [];
-        if(_.isEmpty(vm.slide.catalog.post)) vm.slide.catalog.slide = [];
+        if (_.isEmpty(vm.slide.catalog.post)) vm.slide.catalog.slide = [];
         vm.slide.catalog.slide.push($item.uuid);
         vm.related_posts.push({
             title: $item.data.title,
@@ -132,62 +136,59 @@ angular.module('viettel1').controller('SlideListController', function($scope, Sl
         })
     };
 
-    vm.changeStatus1 = function(uuid, status){
+    vm.changeStatus1 = function (uuid, status) {
         console.log(uuid)
-        for(let i = 0; i< vm.slides.length; i++){
-            if(vm.slides[i].uuid == uuid){
+        for (let i = 0; i < vm.slides.length; i++) {
+            if (vm.slides[i].uuid == uuid) {
                 vm.slide = vm.slides[i];
             }
         }
-        if(vm.slide.data.display[0] == 1) {
-            vm.slide.data.display[0]=0
-        }
-        else  vm.slide.data.display[0]=1;
+        if (vm.slide.data.display[0] == 1) {
+            vm.slide.data.display[0] = 0
+        } else vm.slide.data.display[0] = 1;
         // SlideService.save(vm.slide)
-        console.log("Check edit slide: "+ JSON.stringify(vm.slide))
-        SlideService.edit(vm.slide.uuid)
+        console.log("Check edit slide: " + JSON.stringify(vm.slide))
+        SlideService.save(vm.slide)
 
     };
-    vm.changeStatus2 = function(uuid, status){
+    vm.changeStatus2 = function (uuid, status) {
         console.log(uuid)
-        for(let i = 0; i< vm.slides.length; i++){
-            if(vm.slides[i].uuid == uuid){
+        for (let i = 0; i < vm.slides.length; i++) {
+            if (vm.slides[i].uuid == uuid) {
                 vm.slide = vm.slides[i];
             }
         }
-        if(vm.slide.data.display[1] == 1) {
-            vm.slide.data.display[1]=0
-        }
-        else  vm.slide.data.display[1]=1;
-        console.log("Check add slide in list: "+ JSON.stringify(vm.slide))
+        if (vm.slide.data.display[1] == 1) {
+            vm.slide.data.display[1] = 0
+        } else vm.slide.data.display[1] = 1;
+        console.log("Check add slide in list: " + JSON.stringify(vm.slide))
         SlideService.save(vm.slide)
         // SlideService.edit(vm.slide.uuid)
 
     };
-    vm.changeStatus3= function(uuid, status){
+    vm.changeStatus3 = function (uuid, status) {
         console.log(uuid)
-        for(let i = 0; i< vm.slides.length; i++){
-            if(vm.slides[i].uuid == uuid){
+        for (let i = 0; i < vm.slides.length; i++) {
+            if (vm.slides[i].uuid == uuid) {
                 vm.slide = vm.slides[i];
             }
         }
-        if(vm.slide.data.display[2] == 1) {
-            vm.slide.data.display[2]=0
-        }
-        else  vm.slide.data.display[2]=1;
+        if (vm.slide.data.display[2] == 1) {
+            vm.slide.data.display[2] = 0
+        } else vm.slide.data.display[2] = 1;
         SlideService.save(vm.slide)
         // SlideService.edit(vm.slide.uuid)
 
     };
 
-    vm.remove = function(id, index, $event){
-        console.log("UUID: "+id);
-        if(confirm('Bạn có chắc chắn xóa dữ liệu không?')){
-            SlideService.remove(id).then(function(response){
-                if(response.success){
+    vm.remove = function (id, index, $event) {
+        console.log("UUID: " + id);
+        if (confirm('Bạn có chắc chắn xóa dữ liệu không?')) {
+            SlideService.remove(id).then(function (response) {
+                if (response.success) {
                     vm.slides.splice(index, 1);
                     alertify.success('Xóa dữ liệu thành công');
-                }else{
+                } else {
                     alertify.error('Lỗi khi xóa dữ liệu');
                 }
             });
@@ -203,12 +204,12 @@ angular.module('viettel1').controller('SlideListController', function($scope, Sl
     init();
 });
 
-angular.module('viettel1').controller('SlideFormController', function($scope, $state, $stateParams, Slug, uuid, ModuleDataService, SlideService, $uibModal){
+angular.module('viettel1').controller('SlideFormController', function ($scope, $state, $stateParams, Slug, uuid, ModuleDataService, SlideService, $uibModal) {
     var vm = this;
-    vm.init = function(){
+    vm.init = function () {
         vm.slide = {
-            uuid:uuid.v4(),
-            data : {
+            uuid: uuid.v4(),
+            data: {
                 title: {
                     vi: "",
                     en: ""
@@ -217,13 +218,13 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
                 position: "",
                 name: "",
                 leftSubTitle: "",
-                rightSubTitle:"",
-                shadowImage:"",
-                backgroundImage:"",
-                mainImage:"",
-                leftSubImage:"",
-                rightSubImage:"",
-                display : [
+                rightSubTitle: "",
+                shadowImage: "",
+                backgroundImage: "",
+                mainImage: "",
+                leftSubImage: "",
+                rightSubImage: "",
+                display: [
                     0,
                     0,
                     0,
@@ -235,13 +236,13 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
         };
     };
 
-    vm.submit = function(){
+    vm.submit = function () {
         console.log(vm.slide)
-        if(confirm('Bạn có chắc chắn thêm dữ liệu không?')){
+        if (confirm('Bạn có chắc chắn thêm dữ liệu không?')) {
             SlideService.save(vm.slide).then(function (data) {
-                if(response.success){
+                if (response.success) {
                     alertify.success('Thêm dữ liệu thành công');
-                }else{
+                } else {
                     alertify.error('Lỗi khi thêm dữ liệu');
                 }
             });
@@ -249,31 +250,31 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
 
     }
 
-    $('#screen1').click(function() {
+    $('#screen1').click(function () {
         console.log("Checkbox state (method 1) = " + $('#screen1').prop('checked'));
-        if($('#screen1').prop('checked')==true)
-            vm.slide.data.display[0]=1;
-        else  vm.slide.data.display[0]=0
+        if ($('#screen1').prop('checked') == true)
+            vm.slide.data.display[0] = 1;
+        else vm.slide.data.display[0] = 0
     });
 
-    $('#screen2').click(function() {
+    $('#screen2').click(function () {
         console.log("Checkbox state (method 2) = " + $('#screen2').prop('checked'));
-        if($('#screen2').prop('checked')==true)
-            vm.slide.data.display[1]=1;
-        else  vm.slide.data.display[1]=0
+        if ($('#screen2').prop('checked') == true)
+            vm.slide.data.display[1] = 1;
+        else vm.slide.data.display[1] = 0
     });
 
-    $('#screen3').click(function() {
+    $('#screen3').click(function () {
         console.log("Checkbox state (method 3) = " + $('#screen3').prop('checked'));
-        if($('#screen3').prop('checked')==true)
-            vm.slide.data.display[2]=1;
-        else  vm.slide.data.display[2]=0
+        if ($('#screen3').prop('checked') == true)
+            vm.slide.data.display[2] = 1;
+        else vm.slide.data.display[2] = 0
     });
 
     // if(vm.editting){
     //     vm.uuid =
     // }
-    vm.popupFileBackground = function(lang, parentSelector){
+    vm.popupFileBackground = function (lang, parentSelector) {
         // var x = document.getElementById("").value;
 
         console.log("Select file")
@@ -308,11 +309,11 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
         modalInstance.result.then(function (file) {
             console.info(file);
 
-            if(vm.editting){
+            if (vm.editting) {
                 file.url = vm.slide.data.backgroundImage;
                 // vm.item.backgroundImage[vm.current_lang] = file.url;
-            }else{
-                vm.slide.data.backgroundImage=file.url;
+            } else {
+                vm.slide.data.backgroundImage = file.url;
             }
 
             // $scope.$apply();
@@ -321,7 +322,7 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
         });
     };
 
-    vm.popupFileMainImage = function(lang, parentSelector){
+    vm.popupFileMainImage = function (lang, parentSelector) {
         console.log("Select file");
         var parentElem = parentSelector ?
             angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
@@ -354,10 +355,10 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
         modalInstance.result.then(function (file) {
             console.info(file);
 
-            if(vm.editting){
+            if (vm.editting) {
                 vm.item.mainImage = file.url;
                 // vm.item.mainImage[vm.current_lang] = file.url;
-            }else{
+            } else {
                 // var slide = {mainImage: {}};
                 // slide.mainImage = file.url;
                 // // slide.mainImage[vm.current_lang] = file.url;
@@ -365,7 +366,7 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
                 //     vm.slide.data.items = [];
                 // }
                 // vm.slide.data.items.push(slide);
-                vm.slide.data.mainImage=file.url;
+                vm.slide.data.mainImage = file.url;
             }
 
             // $scope.$apply();
@@ -374,7 +375,7 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
         });
     };
 
-    vm.popupFileLeftSubImage = function(lang, parentSelector){
+    vm.popupFileLeftSubImage = function (lang, parentSelector) {
         console.log("Select file");
         var parentElem = parentSelector ?
             angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
@@ -407,10 +408,10 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
         modalInstance.result.then(function (file) {
             console.info(file);
 
-            if(vm.editting){
+            if (vm.editting) {
                 vm.item.leftSubImage = file.url;
                 // vm.item.leftSubImage[vm.current_lang] = file.url;
-            }else{
+            } else {
                 // var slide = {leftSubImage: {}};
                 // slide.leftSubImage = file.url;
                 // // slide.leftSubImage[vm.current_lang] = file.url;
@@ -418,7 +419,7 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
                 //     vm.slide.data.items = [];
                 // }
                 // vm.slide.data.items.push(slide);
-                vm.slide.data.leftSubImage=file.url;
+                vm.slide.data.leftSubImage = file.url;
             }
 
             // $scope.$apply();
@@ -427,7 +428,7 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
         });
     };
 
-    vm.popupFileRightSubImage = function(lang, parentSelector){
+    vm.popupFileRightSubImage = function (lang, parentSelector) {
         console.log("Select file");
         var parentElem = parentSelector ?
             angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
@@ -460,10 +461,10 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
         modalInstance.result.then(function (file) {
             console.info(file);
 
-            if(vm.editting){
+            if (vm.editting) {
                 vm.item.rightSubImage = file.url;
                 // vm.item.rightSubImage[vm.current_lang] = file.url;
-            }else{
+            } else {
                 // var slide = {rightSubImage: {}};
                 // slide.rightSubImage = file.url;
                 // // slide.rightSubImage[vm.current_lang] = file.url;
@@ -471,7 +472,7 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
                 //     vm.slide.data.items = [];
                 // }
                 // vm.slide.data.items.push(slide);
-                vm.slide.data.rightSubImage=file.url;
+                vm.slide.data.rightSubImage = file.url;
             }
 
             // $scope.$apply();
@@ -480,7 +481,7 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
         });
     };
 
-    vm.popupFileShadowImage = function(lang, parentSelector){
+    vm.popupFileShadowImage = function (lang, parentSelector) {
         // var folder_file = document.getElementsByClassName("popup-file")[1].getAttribute("value");
         // console.log("This is x: "+folder_file)
         // console.log(aa);
@@ -514,13 +515,13 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
 
         modalInstance.result.then(function (file) {
             console.log("Test shadow: " + file);
-            if(vm.editting){
+            if (vm.editting) {
                 vm.slide.data.shadowImage = file.url;
                 // vm.item.rightSubImage[vm.current_lang] = file.url;
-            }else{
+            } else {
                 // switch (folder_file) {
                 // case "Shadow Image":
-                vm.slide.data.shadowImage=file.url;
+                vm.slide.data.shadowImage = file.url;
                 // break;
                 // case "Background Image":  vm.slide.data.backgroundImage=file.url; break;
                 // case "Main Image":  vm.slide.data.mainImage=file.url; break;
@@ -537,12 +538,12 @@ angular.module('viettel1').controller('SlideFormController', function($scope, $s
     vm.init();
 });
 
-angular.module('viettel1').controller('SlideEditController', function($scope, $state, $stateParams, Slug, uuid, ModuleDataService, SlideService, $uibModal){
+angular.module('viettel1').controller('SlideEditController', function ($scope, $state, $stateParams, Slug, uuid, ModuleDataService, SlideService, $uibModal) {
     var vm = this;
-    vm.init = function(){
+    vm.init = function () {
         vm.slide = {
-            uuid:'uaas-3243',
-            data : {
+            uuid: '',
+            data: {
                 title: {
                     vi: "",
                     en: ""
@@ -551,13 +552,13 @@ angular.module('viettel1').controller('SlideEditController', function($scope, $s
                 position: "",
                 name: "",
                 leftSubTitle: "",
-                rightSubTitle:"",
-                shadowImage:"",
-                backgroundImage:"/content/uploads/viettel1/slide/Background Image/bgtrg1.png",
-                mainImage:"",
-                leftSubImage:"",
-                rightSubImage:"",
-                display : [
+                rightSubTitle: "",
+                shadowImage: "",
+                backgroundImage: "/content/uploads/viettel1/slide/Background Image/bgtrg1.png",
+                mainImage: "",
+                leftSubImage: "",
+                rightSubImage: "",
+                display: [
                     0,
                     0,
                     0,
@@ -567,15 +568,22 @@ angular.module('viettel1').controller('SlideEditController', function($scope, $s
             catalog: {},
 
         };
+
+        vm.filterCriteria = {
+            uuid: uuid_editing
+        };
+
+        vm.selectPage(1);
+
     };
 
-    vm.submit = function(){
+    vm.submit = function () {
         console.log(vm.slide)
-        if(confirm('Bạn có chắc chắn thêm dữ liệu không?')){
+        if (confirm('Bạn có chắc chắn thêm dữ liệu không?')) {
             SlideService.save(vm.slide).then(function (data) {
-                if(response.success){
+                if (response.success) {
                     alertify.success('Thêm dữ liệu thành công');
-                }else{
+                } else {
                     alertify.error('Lỗi khi thêm dữ liệu');
                 }
             });
@@ -583,31 +591,45 @@ angular.module('viettel1').controller('SlideEditController', function($scope, $s
 
     }
 
-    $('#screen1').click(function() {
+    //called when navigate to another page in the pagination
+    vm.selectPage = function (page) {
+        vm.filterCriteria.pageNumber = page;
+        vm.fetchResult();
+    };
+
+    vm.fetchResult = function () {
+        console.log("Tesst1: ")
+        return SlideService.findByUuid(vm.filterCriteria).then(function (data) {
+            console.log("Check data API:" + JSON.stringify(data.model))
+            vm.slide = data.model;
+            console.log("This is vm.slide: " + JSON.stringify(vm.slide))
+            vm.totalPages = data.pages;
+        });
+    };
+
+
+    $('#screen1').click(function () {
         console.log("Checkbox state (method 1) = " + $('#screen1').prop('checked'));
-        if($('#screen1').prop('checked')==true)
-            vm.slide.data.display[0]=1;
-        else  vm.slide.data.display[0]=0
+        if ($('#screen1').prop('checked') == true)
+            vm.slide.data.display[0] = 1;
+        else vm.slide.data.display[0] = 0
     });
 
-    $('#screen2').click(function() {
+    $('#screen2').click(function () {
         console.log("Checkbox state (method 2) = " + $('#screen2').prop('checked'));
-        if($('#screen2').prop('checked')==true)
-            vm.slide.data.display[1]=1;
-        else  vm.slide.data.display[1]=0
+        if ($('#screen2').prop('checked') == true)
+            vm.slide.data.display[1] = 1;
+        else vm.slide.data.display[1] = 0
     });
 
-    $('#screen3').click(function() {
+    $('#screen3').click(function () {
         console.log("Checkbox state (method 3) = " + $('#screen3').prop('checked'));
-        if($('#screen3').prop('checked')==true)
-            vm.slide.data.display[2]=1;
-        else  vm.slide.data.display[2]=0
+        if ($('#screen3').prop('checked') == true)
+            vm.slide.data.display[2] = 1;
+        else vm.slide.data.display[2] = 0
     });
 
-    // if(vm.editting){
-    //     vm.uuid =
-    // }
-    vm.popupFileBackground = function(lang, parentSelector){
+    vm.popupFileBackground = function (lang, parentSelector) {
         // var x = document.getElementById("").value;
 
         console.log("Select file")
@@ -642,11 +664,11 @@ angular.module('viettel1').controller('SlideEditController', function($scope, $s
         modalInstance.result.then(function (file) {
             console.info(file);
 
-            if(vm.editting){
+            if (vm.editting) {
                 file.url = vm.slide.data.backgroundImage;
                 // vm.item.backgroundImage[vm.current_lang] = file.url;
-            }else{
-                vm.slide.data.backgroundImage=file.url;
+            } else {
+                vm.slide.data.backgroundImage = file.url;
             }
 
             // $scope.$apply();
@@ -655,7 +677,7 @@ angular.module('viettel1').controller('SlideEditController', function($scope, $s
         });
     };
 
-    vm.popupFileMainImage = function(lang, parentSelector){
+    vm.popupFileMainImage = function (lang, parentSelector) {
         console.log("Select file");
         var parentElem = parentSelector ?
             angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
@@ -688,10 +710,10 @@ angular.module('viettel1').controller('SlideEditController', function($scope, $s
         modalInstance.result.then(function (file) {
             console.info(file);
 
-            if(vm.editting){
+            if (vm.editting) {
                 vm.item.mainImage = file.url;
                 // vm.item.mainImage[vm.current_lang] = file.url;
-            }else{
+            } else {
                 // var slide = {mainImage: {}};
                 // slide.mainImage = file.url;
                 // // slide.mainImage[vm.current_lang] = file.url;
@@ -699,7 +721,7 @@ angular.module('viettel1').controller('SlideEditController', function($scope, $s
                 //     vm.slide.data.items = [];
                 // }
                 // vm.slide.data.items.push(slide);
-                vm.slide.data.mainImage=file.url;
+                vm.slide.data.mainImage = file.url;
             }
 
             // $scope.$apply();
@@ -708,7 +730,7 @@ angular.module('viettel1').controller('SlideEditController', function($scope, $s
         });
     };
 
-    vm.popupFileLeftSubImage = function(lang, parentSelector){
+    vm.popupFileLeftSubImage = function (lang, parentSelector) {
         console.log("Select file");
         var parentElem = parentSelector ?
             angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
@@ -741,18 +763,11 @@ angular.module('viettel1').controller('SlideEditController', function($scope, $s
         modalInstance.result.then(function (file) {
             console.info(file);
 
-            if(vm.editting){
+            if (vm.editting) {
                 vm.item.leftSubImage = file.url;
                 // vm.item.leftSubImage[vm.current_lang] = file.url;
-            }else{
-                // var slide = {leftSubImage: {}};
-                // slide.leftSubImage = file.url;
-                // // slide.leftSubImage[vm.current_lang] = file.url;
-                // if(typeof vm.slide.data.items == "undefined"){
-                //     vm.slide.data.items = [];
-                // }
-                // vm.slide.data.items.push(slide);
-                vm.slide.data.leftSubImage=file.url;
+            } else {
+                vm.slide.data.leftSubImage = file.url;
             }
 
             // $scope.$apply();
@@ -761,7 +776,7 @@ angular.module('viettel1').controller('SlideEditController', function($scope, $s
         });
     };
 
-    vm.popupFileRightSubImage = function(lang, parentSelector){
+    vm.popupFileRightSubImage = function (lang, parentSelector) {
         console.log("Select file");
         var parentElem = parentSelector ?
             angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
@@ -794,10 +809,10 @@ angular.module('viettel1').controller('SlideEditController', function($scope, $s
         modalInstance.result.then(function (file) {
             console.info(file);
 
-            if(vm.editting){
+            if (vm.editting) {
                 vm.item.rightSubImage = file.url;
                 // vm.item.rightSubImage[vm.current_lang] = file.url;
-            }else{
+            } else {
                 // var slide = {rightSubImage: {}};
                 // slide.rightSubImage = file.url;
                 // // slide.rightSubImage[vm.current_lang] = file.url;
@@ -805,7 +820,7 @@ angular.module('viettel1').controller('SlideEditController', function($scope, $s
                 //     vm.slide.data.items = [];
                 // }
                 // vm.slide.data.items.push(slide);
-                vm.slide.data.rightSubImage=file.url;
+                vm.slide.data.rightSubImage = file.url;
             }
 
             // $scope.$apply();
@@ -814,7 +829,7 @@ angular.module('viettel1').controller('SlideEditController', function($scope, $s
         });
     };
 
-    vm.popupFileShadowImage = function(lang, parentSelector){
+    vm.popupFileShadowImage = function (lang, parentSelector) {
         // var folder_file = document.getElementsByClassName("popup-file")[1].getAttribute("value");
         // console.log("This is x: "+folder_file)
         // console.log(aa);
@@ -848,13 +863,13 @@ angular.module('viettel1').controller('SlideEditController', function($scope, $s
 
         modalInstance.result.then(function (file) {
             console.log("Test shadow: " + file);
-            if(vm.editting){
+            if (vm.editting) {
                 vm.slide.data.shadowImage = file.url;
                 // vm.item.rightSubImage[vm.current_lang] = file.url;
-            }else{
+            } else {
                 // switch (folder_file) {
                 // case "Shadow Image":
-                vm.slide.data.shadowImage=file.url;
+                vm.slide.data.shadowImage = file.url;
                 // break;
                 // case "Background Image":  vm.slide.data.backgroundImage=file.url; break;
                 // case "Main Image":  vm.slide.data.mainImage=file.url; break;
