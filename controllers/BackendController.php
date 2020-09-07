@@ -27,4 +27,23 @@ class BackendController extends ControllerBase
         $this->assets->addJs("/modules/viettel1/themes/backend/default/ng-app/slide/services/index.js");
         $this->assets->addJs("/modules/viettel1/themes/backend/default/ng-app/slide/controllers/index.js");
     }
+
+    public function transparentAction()
+    {
+        echo "Transparent";
+        $this->assets->addJs("/modules/viettel1/themes/backend/default/ng-app/app.js");
+        $this->assets->addJs("/modules/viettel1/themes/backend/default/ng-app/upload/services/index.js");
+        $this->assets->addJs("/modules/viettel1/themes/backend/default/ng-app/upload/controllers/popup.js");
+        $this->assets->addJs("/modules/viettel1/themes/backend/default/ng-app/transparent/services/index.js");
+        $this->assets->addJs("/modules/viettel1/themes/backend/default/ng-app/transparent/controllers/index.js");
+    }
+
+    public function transparentScreensAction()
+    {
+        $this->assets->addJs("/modules/viettel1/themes/backend/default/ng-app/app.js");
+        $this->assets->addJs("/modules/viettel1/themes/backend/default/ng-app/upload/services/index.js");
+        $this->assets->addJs("/modules/viettel1/themes/backend/default/ng-app/upload/controllers/popup.js");
+        $this->assets->addJs("/modules/viettel1/themes/backend/default/ng-app/transparent/services/index.js");
+        $this->assets->addJs("/modules/viettel1/themes/backend/default/ng-app/transparent/controllers/index.js");
+    }
 }

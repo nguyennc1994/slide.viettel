@@ -34,6 +34,31 @@ $viettel1->add('/viettel1/frontend/slide', [
     'controller' => 'frontend',
     'action'    => 'slide'
 ]);
+//
+$viettel1->add('/viettel1/backend/transparents/screens', [
+    'controller' => 'backend',
+    'action'    => 'transparentScreens'
+]);
+//
+$viettel1->add('/viettel1/backend/transparents/articles', [
+    'controller' => 'backend',
+    'action'    => 'transparent'
+]);
+//
+//$viettel1->add('/viettel1/frontend/slide', [
+//    'controller' => 'frontend',
+//    'action'    => 'slide'
+//]);
+//
+//$viettel1->add('/viettel1/backend/slide', [
+//    'controller' => 'backend',
+//    'action'    => 'slide'
+//]);
+
+$viettel1->add('/viettel1/frontend/slide', [
+    'controller' => 'frontend',
+    'action'    => 'slide'
+]);
 
 $viettel1->add('/viettel1/frontend', [
     'controller' => 'frontend',
