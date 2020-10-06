@@ -28,6 +28,15 @@ angular.module('viettel1').service('UploadService',function($http, $q, $httpPara
                     }
                 }
             },
+            textFilter: function(){
+                return {
+                    name: 'textFilter',
+                    fn: function(item /*{File|FileLikeObject}*/, options) {
+                        var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+                        return 'html'.indexOf(type) !== -1;
+                    }
+                }
+            },
             enforceMaxFileSize: function(size) {
                 if (!size) size = 10485760;
                 return {
@@ -79,6 +88,7 @@ angular.module('viettel1').service('UploadService',function($http, $q, $httpPara
             return deferred.promise;
         },
         query: function(filter){
+            console.log("Filter image query: "+  JSON.stringify(filter))
             var deferred = $q.defer();
             var promise = $http.get('/viettel1/upload/query',{params: filter}).then(function(response){
                 deferred.resolve(response.data);
