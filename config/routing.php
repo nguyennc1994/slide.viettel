@@ -2,72 +2,47 @@
 
 use Phalcon\Mvc\Router\Group as RouterGroup;
 
-$viettel1 = new RouterGroup([
-    'module'     => 'viettel1',
+$vpgov = new RouterGroup([
+    'module'     => 'vpgov',
     'controller' => 'index',
     'action'     => 'index',
-    'namespace'  => 'QQ\Module\Viettel1\Controller',
+    'namespace'  => 'QQ\Module\Vpgov\Controller',
 ]);
 
-$viettel1->add('/viettel1/:controller/:action/:params', [
+$vpgov->add('/vpgov/:controller/:action/:params', [
+        'controller' => 1,
+        'action'     => 2,
+        'params'     => 3,
+    ]);
+
+$vpgov->add('/vpgov/:controller', [
     'controller' => 1,
-    'action'     => 2,
-    'params'     => 3,
 ]);
 
-$viettel1->add('/viettel1/:controller', [
-    'controller' => 1,
-]);
-
-$viettel1->add('/viettel1/backend', [
+$vpgov->add('/vpgov/backend', [
     'controller' => 'backend',
     'action'    => 'index'
 ]);
 
-
-$viettel1->add('/viettel1/backend/slide', [
+// Slide
+$vpgov->add('/vpgov/backend/slide', [
     'controller' => 'backend',
     'action'    => 'slide'
 ]);
 
-$viettel1->add('/viettel1/frontend/slide', [
-    'controller' => 'frontend',
-    'action'    => 'slide'
-]);
-//
-$viettel1->add('/viettel1/backend/transparents/screens', [
-    'controller' => 'backend',
-    'action'    => 'transparentScreens'
-]);
-//
-$viettel1->add('/viettel1/backend/transparents/articles', [
-    'controller' => 'backend',
-    'action'    => 'transparent'
-]);
-//
-//$viettel1->add('/viettel1/frontend/slide', [
-//    'controller' => 'frontend',
-//    'action'    => 'slide'
-//]);
-//
-//$viettel1->add('/viettel1/backend/slide', [
-//    'controller' => 'backend',
-//    'action'    => 'slide'
-//]);
-
-$viettel1->add('/viettel1/frontend/slide', [
+$vpgov->add('/vpgov/frontend/slide', [
     'controller' => 'frontend',
     'action'    => 'slide'
 ]);
 
-$viettel1->add('/viettel1/frontend', [
+$vpgov->add('/vpgov/frontend', [
     'controller' => 'frontend',
     'action'    => 'index'
 ]);
 
-$viettel1->add('/viettel1[/]?', [
+$vpgov->add('/vpgov[/]?', [
     'controller' => 'index',
     'action'    => 'index'
 ]);
 
-return $viettel1;
+return $vpgov;

@@ -48,6 +48,9 @@
     <link rel='stylesheet' href='/bower_components/angular-loading-bar/build/loading-bar.min.css' type='text/css'
           media='all'/>
     <link href="/bower_components/highcharts-ng/dist/highcharts-ng.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/modules/vpgov/themes/backend/default/assets/chosen/chosen.css">
+    <link rel="stylesheet" type="text/css" href="/modules/vpgov/themes/backend/default/assets/style.css">
     <!-- LayerSlider CSS -->
     <!-- External libraries: jQuery & GreenSock -->
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -56,14 +59,17 @@
     <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script type="text/javascript">
-        var CKEDITOR_BASEPATH = '/bower_components/ckeditor/';
-        window.onerror = function (messageOrEvent, source, lineno, colno, error) {
-            console.error(messageOrEvent);
-//            return true;
-        }
-    </script>
+{#    <script type="text/javascript">#}
+{#        var CKEDITOR_BASEPATH = '/bower_components/ckeditor/';#}
+{#        window.onerror = function (messageOrEvent, source, lineno, colno, error) {#}
+{#            console.error(messageOrEvent);#}
+{#//            return true;#}
+{#        }#}
+{#    </script>#}
     <style>
+        /**
+        Main css
+         */
         .mce-widget span.mce-txt, .mce-menu-item span.mce-text {
             /*font-family: "Montserrat", sans-serif !important;*/
         }
@@ -244,12 +250,17 @@
         #slider {
 
         }
+
+        /**
+        Main css
+         */
+
     </style>
     {% block inline_css %}
     {% endblock %}
 </head>
 
-<body class="fix-header fix-sidebar card-no-border" ng-app="viettel1">
+<body class="fix-header fix-sidebar card-no-border" ng-app="vpgov">
 <!-- ============================================================== -->
 <!-- Preloader - style you can find in spinners.css -->
 <!-- ============================================================== -->
@@ -385,18 +396,18 @@
                     <li><a class="has-arrow waves-effect waves-dark" href="javascript:void(0);" aria-expanded="false"><i
                                     class="mdi mdi-book-open-page-variant"></i><span class="hide-menu">Nội dung </span></a>
                         <ul aria-expanded="false" class="collapse">
-                            <li><a href="/viettel1/backend/slide/"><i class="mdi mdi-minus"></i> Slide</a></li>
+                            <li><a href="/vpgov/backend/slide/"><i class="mdi mdi-minus"></i> Slide</a></li>
 
                         </ul>
                     </li>
                     <li><a class="has-arrow waves-effect waves-dark" href="javascript:void(0);" aria-expanded="false"><i
                                     class="mdi mdi-book-open-page-variant"></i><span class="hide-menu">Transparents </span></a>
                         <ul aria-expanded="false" class="collapse">
-                            <li><a href="/viettel1/backend/transparents/articles/"><i class="mdi mdi-minus"></i>Articles</a></li>
+                            <li><a href="/vpgov/backend/transparents/articles/"><i class="mdi mdi-minus"></i>Articles</a></li>
 
                         </ul>
                         <ul aria-expanded="false" class="collapse">
-                            <li><a href="/viettel1/backend/transparents/screens/"><i class="mdi mdi-minus"></i>Screens</a></li>
+                            <li><a href="/vpgov/backend/transparents/screens/"><i class="mdi mdi-minus"></i>Screens</a></li>
 
                         </ul>
 
@@ -404,11 +415,11 @@
                     <li><a class="has-arrow waves-effect waves-dark" href="javascript:void(0);" aria-expanded="false"><i
                                     class="mdi mdi-book-open-page-variant"></i><span class="hide-menu">Milestones </span></a>
                         <ul aria-expanded="false" class="collapse">
-                            <li><a href="/viettel1/backend/milestones/screens/"><i class="mdi mdi-minus"></i>Screens</a></li>
+                            <li><a href="/vpgov/backend/milestones/screens/"><i class="mdi mdi-minus"></i>Screens</a></li>
 
                         </ul>
                         <ul aria-expanded="false" class="collapse">
-                            <li><a href="/viettel1/backend/milestones/articles/"><i class="mdi mdi-minus"></i>Articles</a></li>
+                            <li><a href="/vpgov/backend/milestones/articles/"><i class="mdi mdi-minus"></i>Articles</a></li>
 
                         </ul>
                     </li>
@@ -574,6 +585,13 @@
     <!-- End Page wrapper  -->
     <!-- ============================================================== -->
 </div>
+
+
+
+<script>
+
+
+</script>
 <!-- ============================================================== -->
 <!-- End Wrapper -->
 <!-- ============================================================== -->
@@ -581,6 +599,9 @@
 <!-- All Jquery -->
 <!-- ============================================================== -->
 <script src="/ui/material-pro/assets/plugins/jquery/jquery.min.js"></script>
+
+<script src="/bower_components/tinymce/tinymce.js"></script>
+<script type="text/javascript" src="/bower_components/angular-ui-tinymce/dist/tinymce.min.js"></script>
 <!-- Bootstrap tether Core JavaScript -->
 <script src="/ui/material-pro/assets/plugins/popper/popper.min.js"></script>
 <script src="/ui/material-pro/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
@@ -636,7 +657,7 @@
 <script type="text/javascript" src="/bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
 <script type="text/javascript" src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 <script type="text/javascript" src="/bower_components/ng-dialog/js/ngDialog.min.js"></script>
-{#<script type="text/javascript" src="/bower_components/ng-i18next/dist/ng-i18next.min.js"></script>#}
+<script type="text/javascript" src="/bower_components/ng-i18next/dist/ng-i18next.min.js"></script>
 <script type="text/javascript" src="/bower_components/angular-ckeditor/angular-ckeditor.min.js"></script>
 <script type="text/javascript" src="/bower_components/angular-ui-tinymce/dist/tinymce.min.js"></script>
 <script type="text/javascript" src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
@@ -684,14 +705,14 @@
 <!-- DataTable.net -->
 <script src="/bower_components/datatables.net/js/jquery.dataTables.js" type="text/javascript" charset="utf-8"></script>
 <script src="/bower_components/angular-datatables/dist/angular-datatables.min.js" type="text/javascript" charset="utf-8"></script>
-
+<script src="https://cdn.ckeditor.com/4.8.0/full-all/ckeditor.js"></script>
+{#<script src="https://cdn.ckeditor.com/ckeditor5/22.0.0/classic/ckeditor.js"></script>#}
 {{ assets.outputJs() }}
-
 
 <!-- LayerSlider script files -->
 <script>
 
-    angular.module('viettel1').factory('ModuleDataService', function ($q, $http) {
+    angular.module('vpgov').factory('ModuleDataService', function ($q, $http) {
         return {
             language: '{{ language }}',
             languages: {{ languages | json_encode }},
@@ -720,61 +741,61 @@
         }, 0);
     });
 </script>
-<script type="text/ng-template" id="src/multi-select-tree.tpl.html">
-    <div class="tree-control">
+{#<script type="text/ng-template" id="src/multi-select-tree.tpl.html">#}
+{#    <div class="tree-control">#}
 
-        <div class="tree-input" ng-click="onControlClicked($event)">
-    <span ng-if="selectedItems.length == 0" class="selected-items">
-      <span ng-bind="defaultLabel"></span>
-    </span>
-            <span ng-if="selectedItems.length > 0" class="selected-items">
-      <span ng-repeat="selectedItem in selectedItems" class="selected-item">{[{selectedItem.title['{{ language }}']}]} <span class="selected-item-close"
-                                                                                                                             ng-click="deselectItem(selectedItem, $event)"></span></span>
-        <span class="caret"></span>
-    </span>
-            <!-- <input type="text" class="blend-in" /> -->
-        </div>
-        <div class="tree-view" ng-show="showTree">
-            <div class="helper-container">
-                <div class="line" data-ng-if="switchView">
-                    <button type="button" ng-click="switchCurrentView($event);" class="helper-button">
-                        {[{switchViewLabel}]}
-                    </button>
-                </div>
-                <div class="line">
-                    <input placeholder="Search..." type="text" ng-model="filterKeyword"
-                           ng-click="onFilterClicked($event)"
-                           class="input-filter">
-                    <span class="clear-button" ng-click="clearFilter($event)"><span class="item-close"></span></span>
-                </div>
-            </div>
-            <ul class="tree-container">
-                <tree-item class="top-level" ng-repeat="item in inputModel" item="item" ng-show="!item.isFiltered"
-                           use-callback="useCallback" can-select-item="canSelectItem"
-                           multi-select="multiSelect" item-selected="itemSelected(item)"
-                           on-active-item="onActiveItem(item)" select-only-leafs="selectOnlyLeafs"></tree-item>
-            </ul>
-        </div>
-    </div>
-</script>
-<script type="text/ng-template" id="src/tree-item.tpl.html">
-    <li>
-        <div class="item-container" ng-class="{active: item.isActive, selected: item.selected}"
-             ng-click="clickSelectItem(item, $event)" ng-mouseover="onMouseOver(item, $event)">
-        <span ng-if="showExpand(item)" class="expand" ng-class="{'expand-opened': item.isExpanded}"
-              ng-click="onExpandClicked(item, $event)"></span>
+{#        <div class="tree-input" ng-click="onControlClicked($event)">#}
+{#    <span ng-if="selectedItems.length == 0" class="selected-items">#}
+{#      <span ng-bind="defaultLabel"></span>#}
+{#    </span>#}
+{#            <span ng-if="selectedItems.length > 0" class="selected-items">#}
+{#      <span ng-repeat="selectedItem in selectedItems" class="selected-item">{[{selectedItem.title['{{ language }}']}]} <span class="selected-item-close"#}
+{#                                                                                                                             ng-click="deselectItem(selectedItem, $event)"></span></span>#}
+{#        <span class="caret"></span>#}
+{#    </span>#}
+{#            <!-- <input type="text" class="blend-in" /> -->#}
+{#        </div>#}
+{#        <div class="tree-view" ng-show="showTree">#}
+{#            <div class="helper-container">#}
+{#                <div class="line" data-ng-if="switchView">#}
+{#                    <button type="button" ng-click="switchCurrentView($event);" class="helper-button">#}
+{#                        {[{switchViewLabel}]}#}
+{#                    </button>#}
+{#                </div>#}
+{#                <div class="line">#}
+{#                    <input placeholder="Search..." type="text" ng-model="filterKeyword"#}
+{#                           ng-click="onFilterClicked($event)"#}
+{#                           class="input-filter">#}
+{#                    <span class="clear-button" ng-click="clearFilter($event)"><span class="item-close"></span></span>#}
+{#                </div>#}
+{#            </div>#}
+{#            <ul class="tree-container">#}
+{#                <tree-item class="top-level" ng-repeat="item in inputModel" item="item" ng-show="!item.isFiltered"#}
+{#                           use-callback="useCallback" can-select-item="canSelectItem"#}
+{#                           multi-select="multiSelect" item-selected="itemSelected(item)"#}
+{#                           on-active-item="onActiveItem(item)" select-only-leafs="selectOnlyLeafs"></tree-item>#}
+{#            </ul>#}
+{#        </div>#}
+{#    </div>#}
+{#</script>#}
+{#<script type="text/ng-template" id="src/tree-item.tpl.html">#}
+{#    <li>#}
+{#        <div class="item-container" ng-class="{active: item.isActive, selected: item.selected}"#}
+{#             ng-click="clickSelectItem(item, $event)" ng-mouseover="onMouseOver(item, $event)">#}
+{#        <span ng-if="showExpand(item)" class="expand" ng-class="{'expand-opened': item.isExpanded}"#}
+{#              ng-click="onExpandClicked(item, $event)"></span>#}
 
-            <div class="item-details"><input class="tree-checkbox" type="checkbox" ng-if="showCheckbox()"
-                                             ng-checked="item.selected"/>{[{item.title['{{ language }}']}]}
-            </div>
-        </div>
-        <ul ng-repeat="child in item.children" ng-if="item.isExpanded">
-            <tree-item item="child" item-selected="subItemSelected(item)" use-callback="useCallback"
-                       can-select-item="canSelectItem" multi-select="multiSelect"
-                       on-active-item="activeSubItem(item, $event)"></tree-item>
-        </ul>
-    </li>
-</script>
+{#            <div class="item-details"><input class="tree-checkbox" type="checkbox" ng-if="showCheckbox()"#}
+{#                                             ng-checked="item.selected"/>{[{item.title['{{ language }}']}]}#}
+{#            </div>#}
+{#        </div>#}
+{#        <ul ng-repeat="child in item.children" ng-if="item.isExpanded">#}
+{#            <tree-item item="child" item-selected="subItemSelected(item)" use-callback="useCallback"#}
+{#                       can-select-item="canSelectItem" multi-select="multiSelect"#}
+{#                       on-active-item="activeSubItem(item, $event)"></tree-item>#}
+{#        </ul>#}
+{#    </li>#}
+{#</script>#}
 
 {% block footer %}
 {% endblock %}

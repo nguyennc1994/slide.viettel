@@ -1,4 +1,4 @@
-angular.module('viettel1').controller('UploadController', function ($scope, $log, $window, $uibModalInstance, uuid, FileUploader, CFG, UploadService, params) {
+angular.module('vpgov').controller('UploadController', function ($scope, $log, $window, $uibModalInstance, uuid, FileUploader, CFG, UploadService, params) {
 
     var vm = this;
     var upload_folder = params.upload_folder;
@@ -18,6 +18,7 @@ angular.module('viettel1').controller('UploadController', function ($scope, $log
             confirmButtonText: 'OK'
         }).then(() => {
             UploadService.remove(uuid).then(function (response) {
+                console.log("Response return: "+response)
                 if (response.success) {
                     swal('Thành công', '', 'success');
                     vm.files.splice(index, 1);
@@ -84,12 +85,12 @@ angular.module('viettel1').controller('UploadController', function ($scope, $log
             }
             console.info(ext);
         }else{
-            ext = ['.pdf','.docx','.doc','.zip','.xls','.xlsx','.jpg','.png'];
+            ext = ['.pdf','.docx','.doc','.zip','.xls','.xlsx','.jpg','.png','.html'];
         }
         vm.uppy = new Uppy.Core({
             debug: true, autoProceed: true,
             restrictions: {
-              // maxFileSize: 300000,
+              // maxFileSize: 3000000,
               // maxNumberOfFiles: 5,
               // minNumberOfFiles: 2,
               allowedFileTypes: ext
@@ -104,7 +105,7 @@ angular.module('viettel1').controller('UploadController', function ($scope, $log
             proudlyDisplayPoweredByUppy: false,
         });
         vm.uppy.use(XHRUpload, {
-            endpoint: '/viettel1/upload/upload'
+            endpoint: '/vpgov/upload/upload'
         });
 //        uppy.use(MetaData, {
 //            fields: [
@@ -120,10 +121,10 @@ angular.module('viettel1').controller('UploadController', function ($scope, $log
         vm.uppy.setMeta({
             token_key: angular.element('#qq_token')[0].attributes['name'].value,
             token_value: angular.element('#qq_token')[0].attributes['value'].value,
-            model: params.model || 'viettel1_file',
+            model: params.model || 'vpgov_file',
             model_uuid: params.model_uuid,
             upload_folder: upload_folder,
-            module: params.module || 'viettel1',
+            module: params.module || 'vpgov',
             lang: params.lang
         });
         vm.uppy.run();
@@ -171,7 +172,8 @@ angular.module('viettel1').controller('UploadController', function ($scope, $log
             for( let i=0; i<data.files.length; i++)
             {
                 let folder_path = data.files[i].data.path;
-                let folder_name = folder_path.slice(15, (folder_path.length-1));
+                // let folder_name = folder_path.slice(15, (folder_path.length-1));
+                let folder_name = folder_path.split("\\")[2];
                 if(folder_name === upload_folder){
                     vm.files.push(data.files[i])
                 }
@@ -179,6 +181,9 @@ angular.module('viettel1').controller('UploadController', function ($scope, $log
             // vm.files= data.files;
             vm.totalPages = data.pages;
             vm.filesCount = data.count;
+            // console.log('vm.filterCriteria: '+ JSON.stringify(vm.filterCriteria))
+            // console.log("File image: "+ vm.files)
+            // console.log("File image: "+ JSON.stringify(data.files))
         }, function () {
             vm.files = [];
             vm.totalPages = 0;
@@ -191,7 +196,7 @@ angular.module('viettel1').controller('UploadController', function ($scope, $log
         };
         vm.view = 'detail';
         vm.mode = params.mode ? params.mode : ['upload', 'repository'];
-        vm.fileupload_url = '/viettel1/upload/popup';
+        vm.fileupload_url = '/vpgov/upload/popup';
         vm.upload = false;
         vm.selectPage(1);
     }

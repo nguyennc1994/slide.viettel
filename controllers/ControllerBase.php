@@ -1,6 +1,6 @@
 <?php
 
-namespace QQ\Module\Viettel1\Controller;
+namespace QQ\Module\Vpgov\Controller;
 
 //use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\Dispatcher;

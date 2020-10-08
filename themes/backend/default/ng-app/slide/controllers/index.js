@@ -1,14 +1,14 @@
-angular.module('viettel1').config(function ($stateProvider, $urlRouterProvider, CFG) {
+angular.module('vpgov').config(function ($stateProvider, $urlRouterProvider, CFG) {
     $urlRouterProvider.otherwise("/list");
     $stateProvider
         .state('list', {
-            templateUrl: '/modules/viettel1/themes/backend/default/ng-app/slide/partials/list.html',
+            templateUrl: '/modules/vpgov/themes/backend/default/ng-app/slide/partials/list.html',
             controller: 'SlideListController',
             controllerAs: 'vm',
             url: "/list"
         })
         .state('create', {
-            templateUrl: '/modules/viettel1/themes/backend/default/ng-app/slide/partials/form.html',
+            templateUrl: '/modules/vpgov/themes/backend/default/ng-app/slide/partials/form.html',
             controller: 'SlideFormController',
             controllerAs: 'vm',
             url: "/create",
@@ -17,7 +17,7 @@ angular.module('viettel1').config(function ($stateProvider, $urlRouterProvider, 
             }
         })
         .state('edit', {
-            templateUrl: '/modules/viettel1/themes/backend/default/ng-app/slide/partials/edit.html',
+            templateUrl: '/modules/vpgov/themes/backend/default/ng-app/slide/partials/edit.html',
             controller: 'SlideEditController',
             controllerAs: 'vm',
             url: "/edit/:slideUuid",
@@ -29,7 +29,7 @@ angular.module('viettel1').config(function ($stateProvider, $urlRouterProvider, 
 
 
 var uuid_editing = "";
-angular.module('viettel1').controller('SlideListController', function ($scope, SlideService) {
+angular.module('vpgov').controller('SlideListController', function ($scope, SlideService) {
     var vm = this;
     var indexScreen = "";
     vm.setLang = function (lang) {
@@ -204,7 +204,7 @@ angular.module('viettel1').controller('SlideListController', function ($scope, S
     init();
 });
 
-angular.module('viettel1').controller('SlideFormController', function ($scope, $state, $stateParams, Slug, uuid, ModuleDataService, SlideService, $uibModal) {
+angular.module('vpgov').controller('SlideFormController', function ($scope, $state, $stateParams, Slug, uuid, ModuleDataService, SlideService, $uibModal) {
     var vm = this;
     vm.init = function () {
         vm.slide = {
@@ -220,7 +220,7 @@ angular.module('viettel1').controller('SlideFormController', function ($scope, $
                 leftSubTitle: "",
                 rightSubTitle: "",
                 shadowImage: "",
-                backgroundImage: "",
+                backgroundImage: "/content/uploads/vpgov/slide/Background Image/bgtrg1.png",
                 mainImage: "",
                 leftSubImage: "",
                 rightSubImage: "",
@@ -242,6 +242,7 @@ angular.module('viettel1').controller('SlideFormController', function ($scope, $
             SlideService.save(vm.slide).then(function (data) {
                 if (response.success) {
                     alertify.success('Thêm dữ liệu thành công');
+                    $state.go('list')
                 } else {
                     alertify.error('Lỗi khi thêm dữ liệu');
                 }
@@ -285,7 +286,7 @@ angular.module('viettel1').controller('SlideFormController', function ($scope, $
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
             //templateUrl: 'widget_option.html',
-            templateUrl: '/modules/viettel1/themes/backend/default/ng-app/upload/partials/popup.html',
+            templateUrl: '/modules/vpgov/themes/backend/default/ng-app/upload/partials/popup.html',
             controller: 'UploadController',
             controllerAs: 'vm',
             size: 'lg',
@@ -298,7 +299,7 @@ angular.module('viettel1').controller('SlideFormController', function ($scope, $
                         lang: lang,
                         model_uuid: vm.slide.uuid,
                         model: 'slide',
-                        module: 'viettel1',
+                        module: 'vpgov',
                         repository: 'all',
                         ext: 'jpg,png'
                     }
@@ -331,7 +332,7 @@ angular.module('viettel1').controller('SlideFormController', function ($scope, $
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
             //templateUrl: 'widget_option.html',
-            templateUrl: '/modules/viettel1/themes/backend/default/ng-app/upload/partials/popup.html',
+            templateUrl: '/modules/vpgov/themes/backend/default/ng-app/upload/partials/popup.html',
             controller: 'UploadController',
             controllerAs: 'vm',
             size: 'lg',
@@ -344,7 +345,7 @@ angular.module('viettel1').controller('SlideFormController', function ($scope, $
                         lang: lang,
                         model_uuid: vm.slide.uuid,
                         model: 'slide',
-                        module: 'viettel1',
+                        module: 'vpgov',
                         repository: 'all',
                         ext: 'jpg,png'
                     }
@@ -384,7 +385,7 @@ angular.module('viettel1').controller('SlideFormController', function ($scope, $
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
             //templateUrl: 'widget_option.html',
-            templateUrl: '/modules/viettel1/themes/backend/default/ng-app/upload/partials/popup.html',
+            templateUrl: '/modules/vpgov/themes/backend/default/ng-app/upload/partials/popup.html',
             controller: 'UploadController',
             controllerAs: 'vm',
             size: 'lg',
@@ -397,7 +398,7 @@ angular.module('viettel1').controller('SlideFormController', function ($scope, $
                         lang: lang,
                         model_uuid: vm.slide.uuid,
                         model: 'slide',
-                        module: 'viettel1',
+                        module: 'vpgov',
                         repository: 'all',
                         ext: 'jpg,png'
                     }
@@ -437,7 +438,7 @@ angular.module('viettel1').controller('SlideFormController', function ($scope, $
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
             //templateUrl: 'widget_option.html',
-            templateUrl: '/modules/viettel1/themes/backend/default/ng-app/upload/partials/popup.html',
+            templateUrl: '/modules/vpgov/themes/backend/default/ng-app/upload/partials/popup.html',
             controller: 'UploadController',
             controllerAs: 'vm',
             size: 'lg',
@@ -450,7 +451,7 @@ angular.module('viettel1').controller('SlideFormController', function ($scope, $
                         lang: lang,
                         model_uuid: vm.slide.uuid,
                         model: 'slide',
-                        module: 'viettel1',
+                        module: 'vpgov',
                         repository: 'all',
                         ext: 'jpg,png'
                     }
@@ -492,7 +493,7 @@ angular.module('viettel1').controller('SlideFormController', function ($scope, $
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
             //templateUrl: 'widget_option.html',
-            templateUrl: '/modules/viettel1/themes/backend/default/ng-app/upload/partials/popup.html',
+            templateUrl: '/modules/vpgov/themes/backend/default/ng-app/upload/partials/popup.html',
             controller: 'UploadController',
             controllerAs: 'vm',
             size: 'lg',
@@ -505,7 +506,7 @@ angular.module('viettel1').controller('SlideFormController', function ($scope, $
                         lang: lang,
                         model_uuid: vm.slide.uuid,
                         model: 'slide',
-                        module: 'viettel1',
+                        module: 'vpgov',
                         repository: 'all',
                         ext: 'jpg,png'
                     }
@@ -538,7 +539,7 @@ angular.module('viettel1').controller('SlideFormController', function ($scope, $
     vm.init();
 });
 
-angular.module('viettel1').controller('SlideEditController', function ($scope, $state, $stateParams, Slug, uuid, ModuleDataService, SlideService, $uibModal) {
+angular.module('vpgov').controller('SlideEditController', function ($scope, $state, $stateParams, Slug, uuid, ModuleDataService, SlideService, $uibModal) {
     var vm = this;
     vm.init = function () {
         vm.slide = {
@@ -554,7 +555,7 @@ angular.module('viettel1').controller('SlideEditController', function ($scope, $
                 leftSubTitle: "",
                 rightSubTitle: "",
                 shadowImage: "",
-                backgroundImage: "/content/uploads/viettel1/slide/Background Image/bgtrg1.png",
+                backgroundImage: "/content/uploads/vpgov/slide/Background Image/bgtrg1.png",
                 mainImage: "",
                 leftSubImage: "",
                 rightSubImage: "",
@@ -640,7 +641,7 @@ angular.module('viettel1').controller('SlideEditController', function ($scope, $
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
             //templateUrl: 'widget_option.html',
-            templateUrl: '/modules/viettel1/themes/backend/default/ng-app/upload/partials/popup.html',
+            templateUrl: '/modules/vpgov/themes/backend/default/ng-app/upload/partials/popup.html',
             controller: 'UploadController',
             controllerAs: 'vm',
             size: 'lg',
@@ -653,7 +654,7 @@ angular.module('viettel1').controller('SlideEditController', function ($scope, $
                         lang: lang,
                         model_uuid: vm.slide.uuid,
                         model: 'slide',
-                        module: 'viettel1',
+                        module: 'vpgov',
                         repository: 'all',
                         ext: 'jpg,png'
                     }
@@ -686,7 +687,7 @@ angular.module('viettel1').controller('SlideEditController', function ($scope, $
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
             //templateUrl: 'widget_option.html',
-            templateUrl: '/modules/viettel1/themes/backend/default/ng-app/upload/partials/popup.html',
+            templateUrl: '/modules/vpgov/themes/backend/default/ng-app/upload/partials/popup.html',
             controller: 'UploadController',
             controllerAs: 'vm',
             size: 'lg',
@@ -699,7 +700,7 @@ angular.module('viettel1').controller('SlideEditController', function ($scope, $
                         lang: lang,
                         model_uuid: vm.slide.uuid,
                         model: 'slide',
-                        module: 'viettel1',
+                        module: 'vpgov',
                         repository: 'all',
                         ext: 'jpg,png'
                     }
@@ -739,7 +740,7 @@ angular.module('viettel1').controller('SlideEditController', function ($scope, $
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
             //templateUrl: 'widget_option.html',
-            templateUrl: '/modules/viettel1/themes/backend/default/ng-app/upload/partials/popup.html',
+            templateUrl: '/modules/vpgov/themes/backend/default/ng-app/upload/partials/popup.html',
             controller: 'UploadController',
             controllerAs: 'vm',
             size: 'lg',
@@ -752,7 +753,7 @@ angular.module('viettel1').controller('SlideEditController', function ($scope, $
                         lang: lang,
                         model_uuid: vm.slide.uuid,
                         model: 'slide',
-                        module: 'viettel1',
+                        module: 'vpgov',
                         repository: 'all',
                         ext: 'jpg,png'
                     }
@@ -785,7 +786,7 @@ angular.module('viettel1').controller('SlideEditController', function ($scope, $
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
             //templateUrl: 'widget_option.html',
-            templateUrl: '/modules/viettel1/themes/backend/default/ng-app/upload/partials/popup.html',
+            templateUrl: '/modules/vpgov/themes/backend/default/ng-app/upload/partials/popup.html',
             controller: 'UploadController',
             controllerAs: 'vm',
             size: 'lg',
@@ -798,7 +799,7 @@ angular.module('viettel1').controller('SlideEditController', function ($scope, $
                         lang: lang,
                         model_uuid: vm.slide.uuid,
                         model: 'slide',
-                        module: 'viettel1',
+                        module: 'vpgov',
                         repository: 'all',
                         ext: 'jpg,png'
                     }
@@ -840,7 +841,7 @@ angular.module('viettel1').controller('SlideEditController', function ($scope, $
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
             //templateUrl: 'widget_option.html',
-            templateUrl: '/modules/viettel1/themes/backend/default/ng-app/upload/partials/popup.html',
+            templateUrl: '/modules/vpgov/themes/backend/default/ng-app/upload/partials/popup.html',
             controller: 'UploadController',
             controllerAs: 'vm',
             size: 'lg',
@@ -853,7 +854,7 @@ angular.module('viettel1').controller('SlideEditController', function ($scope, $
                         lang: lang,
                         model_uuid: vm.slide.uuid,
                         model: 'slide',
-                        module: 'viettel1',
+                        module: 'vpgov',
                         repository: 'all',
                         ext: 'jpg,png'
                     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace QQ\Module\Viettel1\Controller;
+namespace QQ\Module\Vpgov\Controller;
 
 use Phalcon\Di\Service;
 use QQ\Core\Library\Utils;
@@ -22,8 +22,8 @@ class UploadController extends ControllerBase
 
     public function indexAction($model = 'upload', $uuid = null)
     {
-        $this->assets->addJs("/modules/viettel1/themes/backend/default/ng-app/upload/controllers/index.js");
-        $this->assets->addJs("/modules/viettel1/themes/backend/default/ng-app/upload/services/index.js");
+        $this->assets->addJs("/modules/vpgov/themes/backend/default/ng-app/upload/controllers/index.js");
+        $this->assets->addJs("/modules/vpgov/themes/backend/default/ng-app/upload/services/index.js");
         $this->view->model = $model;
         $this->view->model_uuid = $uuid;
         $this->view->setVar('main_title', ['vi' => 'Quản lý Files']);
@@ -57,7 +57,6 @@ class UploadController extends ControllerBase
         // Check if the user has uploaded files
         if ($this->request->hasFiles() == true) {
             $baseLocation = 'files/';
-            echo "AAAAA";
 
             // Print the real file names and sizes
 //            foreach ($this->request->getUploadedFiles() as $file) {
@@ -73,12 +72,12 @@ class UploadController extends ControllerBase
             $model_uuid = $this->request->getPost('model_uuid');
             $lang = $this->request->getPost('lang');
             $upload_folder = $this->request->getPost('upload_folder');
-            echo "Upload folder Test: "+ $upload_folder;
+            $module = $this->request->getPost('module');
 
             $upload_dir = content_path('uploads') . DIRECTORY_SEPARATOR;
 
-//            $upload_time_dir = 'viettel1' . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR . date('d') . DIRECTORY_SEPARATOR;
-            $upload_time_dir = 'viettel1' . DIRECTORY_SEPARATOR . ('slide'). DIRECTORY_SEPARATOR. ($upload_folder). DIRECTORY_SEPARATOR;
+//            $upload_time_dir = 'vpgov' . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR . date('d') . DIRECTORY_SEPARATOR;
+            $upload_time_dir = $module . DIRECTORY_SEPARATOR . ($model). DIRECTORY_SEPARATOR. ($upload_folder). DIRECTORY_SEPARATOR;
 
             $upload_dir .= $upload_time_dir;
             echo $upload_dir;
@@ -105,15 +104,15 @@ class UploadController extends ControllerBase
                 $fu->data = $data;
                 $fu->model = empty($model) ? 'upload' : $model;
                 $fu->model_uuid = QFunction::isValidUuid($model_uuid) ? $model_uuid : null;
-                $fu->module = 'viettel1';
+                $fu->module = $module;
                 $fu->save();
                 $file->moveTo($upload_dir . $slug);
                 $filepath = $upload_dir . $slug;
-                $image = new \Phalcon\Image\Adapter\GD($filepath);
-                if(!empty($watermark)){
-                    $image->text($watermark, true, true);
-                }
-                $image->save();
+//                $image = new \Phalcon\Image\Adapter\GD($filepath);
+//                if(!empty($watermark)){
+//                    $image->text($watermark, true, true);
+//                }
+//                $image->save();
             }
             echo json_encode(array(
                 'success' => true
@@ -204,13 +203,13 @@ class UploadController extends ControllerBase
     }
     public function removeAction(){
         $this->view->disable();
-        if (!$this->tokenManager->checkToken('User', $this->request->getPost('token_key'), $this->request->getPost('token_value'))) {
-            // Json Output
-            echo json_encode(array(
-                'success'   => false,
-                'error'     => 'Token Failed'
-            ));
-        }
+//        if (!$this->tokenManager->checkToken('User', $this->request->getPost('token_key'), $this->request->getPost('token_value'))) {
+//            // Json Output
+//            echo json_encode(array(
+//                'success'   => false,
+//                'error'     => 'Token Failed'
+//            ));
+//        }
 
         $uuid = $this->request->getPost('uuid');
         try{

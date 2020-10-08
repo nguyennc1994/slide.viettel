@@ -1,11 +1,11 @@
 <?php
 
-namespace QQ\Module\Viettel1\Controller;
+namespace QQ\Module\Vpgov\Controller;
 
 use Phalcon\Di\Service;
 use QQ\Core\Model\Services\Service\Workflow;
-use QQ\Module\Viettel1\Model\SlideEntity;
-use QQ\Module\Viettel1\Model\Services\Service\Slide;
+use QQ\Module\Vpgov\Model\SlideEntity;
+use QQ\Module\Vpgov\Model\Services\Service\Slide;
 
 class  BackendSlideController extends ControllerBase
 {
@@ -34,6 +34,7 @@ class  BackendSlideController extends ControllerBase
             'data'  => $data
         ));
         if($m->save()){
+            $this->logger->info("Lưu slide thành công");
             echo json_encode(
                 array(
                     'success'   => true
@@ -170,6 +171,7 @@ class  BackendSlideController extends ControllerBase
 
         exit();
     }
+
     public function removeAction(){
 
         $this->view->disable();
@@ -184,7 +186,6 @@ class  BackendSlideController extends ControllerBase
                 ));
                 exit();
             }
-            else echo "false";
         }catch(Exceptions\EntityNotFoundException $e){
 
         }

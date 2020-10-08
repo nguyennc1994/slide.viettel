@@ -1,5 +1,5 @@
 <?php
-namespace QQ\Module\Viettel1\Model;
+namespace QQ\Module\Vpgov\Model;
 
 use Phalcon\Mvc\Model;
 use QQ\Core\Model\Entity;
@@ -18,7 +18,7 @@ use QQ\Core\Model\Behavior\Blameable as ModelBlameable;
 class ModuleBaseEntity extends Entity
 {
     public function getPrefix(){
-        return 'viettel1_';
+        return 'viettel_';
     }
     public function getPrefix1(){
         return 'viettel_';

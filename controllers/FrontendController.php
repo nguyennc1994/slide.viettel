@@ -1,12 +1,12 @@
 <?php
 
-namespace QQ\Module\Viettel1\Controller;
+namespace QQ\Module\Vpgov\Controller;
 
 use Phalcon\Di\Service;
 use QQ\Core\Model\Services\Service\Workflow;
 
 
-class frontendController extends ControllerBase
+class FrontendController extends ControllerBase
 {
     public function initialize()
     {
@@ -21,8 +21,15 @@ class frontendController extends ControllerBase
 
     public function slideAction()
     {
-        $this->assets->addJs("/modules/viettel1/themes/frontend/default/ng-app/app.js");
-        $this->assets->addJs("/modules/viettel1/themes/frontend/default/ng-app/slide/services/index.js");
-        $this->assets->addJs("/modules/viettel1/themes/frontend/default/ng-app/slide/controllers/index.js");
+        $this->assets->addJs("/modules/vpgov/themes/frontend/default/ng-app/app.js");
+        $this->assets->addJs("/modules/vpgov/themes/frontend/default/ng-app/slide/services/index.js");
+        $this->assets->addJs("/modules/vpgov/themes/frontend/default/ng-app/slide/controllers/index.js");
+    }
+    public function transparentAction()
+    {
+        $this->assets->addJs("/modules/vpgov/themes/frontend/default/ng-app/app.js");
+        $this->assets->addJs("/modules/vpgov/themes/frontend/default/ng-app/transparent/services/screen.js");
+        $this->assets->addJs("/modules/vpgov/themes/frontend/default/ng-app/transparent/controllers/screen.js");
+        $this->assets->addJs("/modules/vpgov/themes/backend/default/ng-app/transparent/services/article.js");
     }
 }

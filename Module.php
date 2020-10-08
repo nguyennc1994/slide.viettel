@@ -1,5 +1,5 @@
 <?php
-namespace QQ\Module\Viettel1;
+namespace QQ\Module\Vpgov;
 
 use Phalcon\Loader;
 use Phalcon\DiInterface;
@@ -19,7 +19,7 @@ class Module extends BaseModule
      */
     public function getHandlersNamespace()
     {
-        return 'QQ\Module\Viettel1\Controller';
+        return 'QQ\Module\Vpgov\Controller';
     }
 
     /**
@@ -33,9 +33,9 @@ class Module extends BaseModule
 
         $namespaces = [
             $this->getHandlersNamespace() => __DIR__ . '/controllers/',
-            'QQ\Module\Viettel1\Model' => __DIR__ . '/models/',
-//            'QQ\Module\Viettel1\Services\Service'      => __DIR__ . '/models/Services/Service',
-            'QQ\Module\Viettel1\Forms' => __DIR__ . '/forms/',
+            'QQ\Module\Vpgov\Model' => __DIR__ . '/models/',
+//            'QQ\Module\Vpgov\Services\Service'      => __DIR__ . '/models/Services/Service',
+            'QQ\Module\Vpgov\Forms' => __DIR__ . '/forms/',
         ];
 
         $loader->registerNamespaces($namespaces);
@@ -60,7 +60,7 @@ class Module extends BaseModule
         $eventsManager = $di->getShared('eventsManager');
         $eventsManager->attach('view:notFoundView', new ViewListener($di));
 
-        $di->getShared('option')->load('viettel1');
+        $di->getShared('option')->load('vpgov');
 
         // Setting up the View Component
         $theme = $di->getShared('theme');
@@ -68,15 +68,15 @@ class Module extends BaseModule
 
         $theme = $di->getShared('theme');
         $view = $di->getShared('view');
-        $di->getShared('translation')->load($lang = null, $module = 'viettel1', $theme->getThemeName(), $prefix = '');
+        $di->getShared('translation')->load($lang = null, $module = 'vpgov', $theme->getThemeName(), $prefix = '');
 
-        $theme->setModuleName('viettel1');
+        $theme->setModuleName('vpgov');
         $theme->setThemeName('default');
         $controller = $di->getShared('router')->getControllerName();
         if ($controller == 'backend') $view->setViewsDir($moduleConfig->application->viewsDirBackend);
         else {
             // Load translation
-            $di->getShared('translation')->load($lang = null, $module = 'viettel1', $theme->getThemeName(), $prefix = 'frontend/');
+            $di->getShared('translation')->load($lang = null, $module = 'vpgov', $theme->getThemeName(), $prefix = 'frontend/');
             $view->setViewsDir($moduleConfig->application->viewsDirFrontend);
         }
     }

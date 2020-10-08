@@ -1,20 +1,20 @@
-angular.module('viettel1').config(function ($stateProvider, $urlRouterProvider, CFG) {
+angular.module('vpgov').config(function ($stateProvider, $urlRouterProvider, CFG) {
     $urlRouterProvider.otherwise("/list");
     $stateProvider
         .state('list1', {
-            templateUrl: '/modules/viettel1/themes/frontend/default/ng-app/slide/partials/list1.html',
+            templateUrl: '/modules/vpgov/themes/frontend/default/ng-app/slide/partials/list1.html',
             controller: 'SlideList1Controller',
             controllerAs: 'vm',
             url: "/list1"
         })
         .state('list2', {
-            templateUrl: '/modules/viettel1/themes/frontend/default/ng-app/slide/partials/list2.html',
+            templateUrl: '/modules/vpgov/themes/frontend/default/ng-app/slide/partials/list2.html',
             controller: 'SlideList2Controller',
             controllerAs: 'vm',
             url: "/list2"
         })
         .state('list3', {
-            templateUrl: '/modules/viettel1/themes/frontend/default/ng-app/slide/partials/list3.html',
+            templateUrl: '/modules/vpgov/themes/frontend/default/ng-app/slide/partials/list3.html',
             controller: 'SlideList3Controller',
             controllerAs: 'vm',
             url: "/list3"
@@ -22,7 +22,7 @@ angular.module('viettel1').config(function ($stateProvider, $urlRouterProvider, 
 });
 
 
-angular.module('viettel1').controller('SlideList1Controller', function($scope, SlideService){
+angular.module('vpgov').controller('SlideList1Controller', function($scope, SlideService){
     var vm = this;
 
     vm.setLang = function(lang){
@@ -40,7 +40,7 @@ angular.module('viettel1').controller('SlideList1Controller', function($scope, S
             sortDir: 'asc',
             sortedBy: 'id',
             model: 'slide',
-            module: 'viettel',
+            module: 'vpgov',
             type: 'entity'
         };
 
@@ -85,7 +85,7 @@ angular.module('viettel1').controller('SlideList1Controller', function($scope, S
         hideOver: 100000,
         skin: 'v5',
         allowRestartOnResize: true,
-        skinsPath: '/ui/viettel-slide/assets/skins/'
+        skinsPath: '/modules/vpgov/themes/backend/default/assets/skins/'
     })
 
     vm.onSlideSelect = function($item, $model, $label){
@@ -104,7 +104,7 @@ angular.module('viettel1').controller('SlideList1Controller', function($scope, S
 
 });
 
-angular.module('viettel1').controller('SlideList2Controller', function($scope, SlideService){
+angular.module('vpgov').controller('SlideList2Controller', function($scope, SlideService){
     var vm = this;
 
     vm.setLang = function(lang){
@@ -122,7 +122,7 @@ angular.module('viettel1').controller('SlideList2Controller', function($scope, S
             sortDir: 'asc',
             sortedBy: 'id',
             model: 'slide',
-            module: 'viettel',
+            module: 'vpgov',
             type: 'entity'
         };
 
@@ -140,9 +140,10 @@ angular.module('viettel1').controller('SlideList2Controller', function($scope, S
     vm.fetchResult = function () {
         return SlideService.list(vm.filterCriteria).then(function (data) {
             // vm.slides = data.items;
-            console.log("data: "+data.items)
+            console.log("data: "+JSON.stringify(data.items))
             vm.slides = []
             for(let i =0; i< data.items.length; i++){
+                console.log("data: "+JSON.stringify(data.items[i].data))
                 if(data.items[i].data.display[1] == 1){
                     vm.slides.push(data.items[i]);
                 }
@@ -167,7 +168,7 @@ angular.module('viettel1').controller('SlideList2Controller', function($scope, S
         hideOver: 100000,
         skin: 'v5',
         allowRestartOnResize: true,
-        skinsPath: '/ui/viettel-slide/assets/skins/'
+        skinsPath: '/modules/vpgov/themes/backend/default/assets/skins/'
     })
 
     vm.onSlideSelect = function($item, $model, $label){
@@ -198,7 +199,7 @@ angular.module('viettel1').controller('SlideList2Controller', function($scope, S
     init();
 });
 
-angular.module('viettel1').controller('SlideList3Controller', function($scope, SlideService){
+angular.module('vpgov').controller('SlideList3Controller', function($scope, SlideService){
     var vm = this;
 
     vm.setLang = function(lang){
@@ -216,7 +217,7 @@ angular.module('viettel1').controller('SlideList3Controller', function($scope, S
             sortDir: 'asc',
             sortedBy: 'id',
             model: 'slide',
-            module: 'viettel',
+            module: 'vpgov',
             type: 'entity'
         };
 
@@ -262,7 +263,7 @@ angular.module('viettel1').controller('SlideList3Controller', function($scope, S
         hideOver: 100000,
         skin: 'v5',
         allowRestartOnResize: true,
-        skinsPath: '/ui/viettel-slide/assets/skins/'
+        skinsPath: '/modules/vpgov/themes/backend/default/assets/skins/'
     })
 
     vm.onSlideSelect = function($item, $model, $label){

@@ -1,14 +1,14 @@
-angular.module('viettel1').config(function ($stateProvider, $urlRouterProvider, CFG) {
+angular.module('vpgov').config(function ($stateProvider, $urlRouterProvider, CFG) {
     $urlRouterProvider.otherwise("/list");
     $stateProvider
         .state('list', {
-            templateUrl: '/modules/viettel1/themes/backend/default/ng-app/upload/partials/list1.html',
+            templateUrl: '/modules/vpgov/themes/backend/default/ng-app/upload/partials/list1.html',
             controller: 'UploadController',
             controllerAs: 'vm',
             url: "/list"
         })
 });
-angular.module('viettel1').controller('UploadController', function($scope, $log, uuid, FileUploader, ModuleDataService, UploadDataService, UploadService){
+angular.module('vpgov').controller('UploadController', function($scope, $log, uuid, FileUploader, ModuleDataService, UploadDataService, UploadService){
 
     var vm = this;
     vm.languages = ModuleDataService.languages;
@@ -63,7 +63,7 @@ angular.module('viettel1').controller('UploadController', function($scope, $log,
     };
     vm.createUploader = function(){
         var uploader = vm.uploader = new FileUploader({
-            url: '/viettel1/upload/upload',
+            url: '/vpgov/upload/upload',
             formData: [{
                 token_key: angular.element('#qq_token')[0].attributes['name'].value,
                 token_value: angular.element('#qq_token')[0].attributes['value'].value,
@@ -175,7 +175,7 @@ angular.module('viettel1').controller('UploadController', function($scope, $log,
             proudlyDisplayPoweredByUppy: false,
         });
         vm.uppy.use(XHRUpload, {
-            endpoint: '/viettel1/upload/upload'
+            endpoint: '/vpgov/upload/upload'
         });
 //        uppy.use(MetaData, {
 //            fields: [
@@ -192,7 +192,7 @@ angular.module('viettel1').controller('UploadController', function($scope, $log,
             token_value: angular.element('#qq_token')[0].attributes['value'].value,
             model: 'file',
             model_uuid: null,
-            module: 'viettel1',
+            module: 'vpgov',
             lang: vm.language
         });
         vm.uppy.run();

@@ -1,6 +1,6 @@
 angular.lowercase = text => text.toLowerCase();
 var ngSweetAlert2 = window.ngSweetAlert2;
-var app = angular.module('viettel1',
+var app = angular.module('vpgov',
     [
         //'ngRoute',
         'ngResource',

@@ -1,11 +1,11 @@
-angular.module('viettel1').service(
+angular.module('vpgov').service(
     'SlideService',function($http, $q, $httpParamSerializer){
     return {
         save: function (slide) {
             var deferred = $q.defer();
             $http({
                 method: 'POST',
-                url: '/viettel1/frontend-slide/save',
+                url: '/vpgov/frontend-slide/save',
                 data: $httpParamSerializer(slide),  // pass in data as strings
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 // set the headers so angular passing info as form data (not request payload)
@@ -22,7 +22,7 @@ angular.module('viettel1').service(
         edit: function(uuid){
             var deferred = $q.defer();
             if(uuid){
-                $http.get('/viettel1/backend-slide/edit/',{params: {uuid: uuid}}).then(function(response){
+                $http.get('/vpgov/backend-slide/edit/',{params: {uuid: uuid}}).then(function(response){
                     deferred.resolve(response.data);
                 }, function(error){});
                 return deferred.promise;
@@ -32,7 +32,7 @@ angular.module('viettel1').service(
             var deferred = $q.defer();
             $http({
                 method: 'GET',
-                url: '/viettel1/frontend-slide/list',
+                url: '/vpgov/frontend-slide/list',
                 // data: $httpParamSerializer(timeline),  // pass in data as strings
                 config : {
                     params: filter
@@ -49,7 +49,7 @@ angular.module('viettel1').service(
         edit: function(uuid){
             var deferred = $q.defer();
             if(uuid){
-                $http.get('/viettel1/slide/edit/',{params: {uuid: uuid}}).then(function(response){
+                $http.get('/vpgov/slide/edit/',{params: {uuid: uuid}}).then(function(response){
                     deferred.resolve(response.data);
                 }, function(error){});
                 return deferred.promise;
@@ -60,7 +60,7 @@ angular.module('viettel1').service(
             var deferred = $q.defer();
             $http({
                 method: 'GET',
-                url: '/viettel1/frontend-slide/search',
+                url: '/vpgov/frontend-slide/search',
                 config : {
                     params: filter
                 }
@@ -81,7 +81,7 @@ angular.module('viettel1').service(
             var deferred = $q.defer();
             $http({
                 method: 'POST',
-                url: '/viettel1/frontend-slide/remove',
+                url: '/vpgov/frontend-slide/remove',
                 data: $.param({uuid: uuid}),  // pass in data as strings
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 // set the headers so angular passing info as form data (not request payload)

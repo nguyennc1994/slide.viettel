@@ -1,4 +1,4 @@
-angular.module('viettel1').service('UploadService',function($http, $q, $httpParamSerializer){
+angular.module('vpgov').service('UploadService',function($http, $q, $httpParamSerializer){
     return {
         filters: {
             imageFilter: function(){
@@ -66,7 +66,7 @@ angular.module('viettel1').service('UploadService',function($http, $q, $httpPara
 
             $http({
                 method  : 'POST',
-                url     : '/viettel1/upload/remove',
+                url     : '/vpgov/upload/remove',
                 data    : $httpParamSerializer(params),  // pass in data as strings
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
             })
@@ -80,7 +80,7 @@ angular.module('viettel1').service('UploadService',function($http, $q, $httpPara
         },
         search: function(criteria){
             var deferred = $q.defer();
-            var promise = $http.get('/viettel1/upload/search',{params: criteria}).then(function(response){
+            var promise = $http.get('/vpgov/upload/search',{params: criteria}).then(function(response){
                 deferred.resolve(response.data);
             }, function(error){
 
@@ -90,7 +90,7 @@ angular.module('viettel1').service('UploadService',function($http, $q, $httpPara
         query: function(filter){
             console.log("Filter image query: "+  JSON.stringify(filter))
             var deferred = $q.defer();
-            var promise = $http.get('/viettel1/upload/query',{params: filter}).then(function(response){
+            var promise = $http.get('/vpgov/upload/query',{params: filter}).then(function(response){
                 deferred.resolve(response.data);
             }, function(error){
 

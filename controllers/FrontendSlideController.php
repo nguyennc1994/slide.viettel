@@ -1,11 +1,11 @@
 <?php
 
-namespace QQ\Module\Viettel1\Controller;
+namespace QQ\Module\Vpgov\Controller;
 
 use Phalcon\Di\Service;
 use QQ\Core\Model\Services\Service\Workflow;
-use QQ\Module\Viettel1\Model\SlideEntity;
-use QQ\Module\Viettel1\Model\Services\Service\Slide;
+use QQ\Module\Vpgov\Model\SlideEntity;
+use QQ\Module\Vpgov\Model\Services\Service\Slide;
 
 class  FrontendSlideController extends ControllerBase
 {

@@ -6,7 +6,7 @@
  * Time: 6:11 CH
  */
 
-namespace QQ\Module\Viettel1\Model;
+namespace QQ\Module\Vpgov\Model;
 
 
 class SlideEntity extends ModuleBaseEntity

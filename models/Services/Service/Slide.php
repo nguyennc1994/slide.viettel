@@ -1,7 +1,7 @@
 <?php
-namespace QQ\Module\Viettel1\Model\Services\Service;
+namespace QQ\Module\Vpgov\Model\Services\Service;
 use QQ\Core\Model\Services\Service;
-use QQ\Module\Viettel1\Model\SlideEntity;
+use QQ\Module\Vpgov\Model\SlideEntity;
 use QQ\Core\Model\Services\Exceptions\EntityNotFoundException;
 use \Phalcon\Paginator\Adapter\QueryBuilder;
 use \Phalcon\Mvc\Model\Resultset\Simple as Resultset;
